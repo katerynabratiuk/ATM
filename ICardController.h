@@ -5,9 +5,14 @@
 class ICardController
 {
 public:
-	void authenticate(const std::string& cardNumber, const std::string& pin)
+	void authenticate(const std::string& cardNum, const std::string& pin)
 	{
-		doAuth(cardNumber, pin);
+		doAuth(cardNum, pin);
+	}
+
+	void deauthenticate()
+	{
+		doDeauth();
 	}
 
 	void deposit(double amount)
@@ -20,9 +25,9 @@ public:
 		doWithdraw(amount);
 	}
 
-	void transfer(const std::string& targetCardNumber, double amount)
+	void transfer(const std::string& targetCardNum, double amount)
 	{
-		doTransfer(targetCardNumber, amount);
+		doTransfer(targetCardNum, amount);
 	}
 
 	void changePin(const std::string& newPin)
@@ -35,10 +40,11 @@ public:
 		return doGetCard();
 	}
 private:
-	virtual void doAuth(const std::string& cardNumber, const std::string& pin) = 0;
+	virtual void doAuth(const std::string& cardNum, const std::string& pin) = 0;
+	virtual void doDeauth() = 0;
 	virtual void doDeposit(double amount) = 0;
 	virtual void doWithdraw(double amount) = 0;
-	virtual void doTransfer(const std::string& targetCardNumber, double amount) = 0;
+	virtual void doTransfer(const std::string& targetCardNum, double amount) = 0;
 	virtual void doChangePin(const std::string& newPin) = 0;
 	virtual Card doGetCard() = 0;
 };

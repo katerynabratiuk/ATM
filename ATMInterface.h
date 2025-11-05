@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_ATMSimulator.h"
 #include "LoginWidget.h"
+#include "StartWidget.h"
 #include "ICardController.h"
 #include "Enums.h"
 
@@ -23,6 +24,7 @@ private:
     ICardController* _cardController;
 
     LoginWidget _loginPage;
+	StartWidget _startPage;
 
     void addPages();
 	void connectSlots();

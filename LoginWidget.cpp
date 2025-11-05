@@ -33,10 +33,12 @@ void LoginWidget::login()
 		return;
 	}
 
+	int attempts = 0;
 	try
 	{
 		_cardController->authenticate(_ui.cardForm->text().toStdString(),
 			_ui.pinForm->text().toStdString());
+
 		_ui.cardForm->clear();
 		_ui.pinForm->clear();
 		

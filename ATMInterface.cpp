@@ -7,7 +7,7 @@ ATMInterface::ATMInterface(QWidget *parent, ICardController* cardController)
     addPages();
     connectSlots();
 
-	changeCurrentPage(Pages::LoginPage);
+	changeCurrentPage(Pages::StartingPage);
 }
 
 ATMInterface::~ATMInterface()
@@ -20,11 +20,13 @@ void ATMInterface::changeCurrentPage(Pages page)
 
 void ATMInterface::addPages()
 {
+    _ui.widgetStack->insertWidget(static_cast<int>(Pages::StartingPage), &_startPage);
     _ui.widgetStack->insertWidget(static_cast<int>(Pages::LoginPage), &_loginPage);
 }
 
 void ATMInterface::connectSlots()
 {
     connect(&_loginPage, &LoginWidget::changePage, this, &ATMInterface::changeCurrentPage);
+    connect(&_startPage, &StartWidget::changePage, this, &ATMInterface::changeCurrentPage);
 }
 

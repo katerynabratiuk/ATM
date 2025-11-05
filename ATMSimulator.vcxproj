@@ -92,6 +92,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CardController.cpp" />
+    <ClCompile Include="StartWidget.cpp" />
     <QtRcc Include="ATMSimulator.qrc" />
     <QtUic Include="ATMSimulator.ui" />
     <QtMoc Include="ATMInterface.h" />
@@ -99,14 +101,18 @@
     <ClCompile Include="LoginWidget.cpp" />
     <ClCompile Include="main.cpp" />
     <QtUic Include="LoginWidget.ui" />
+    <QtUic Include="StartWidget.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LoginWidget.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CardController.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="ICardController.h" />
+    <ClInclude Include="ICardService.h" />
     <ClInclude Include="Models.h" />
+    <QtMoc Include="StartWidget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

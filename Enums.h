@@ -2,7 +2,8 @@
 
 enum class Pages
 {
-	LoginPage = 0,
+	StartingPage = 0,
+	LoginPage,
 	MainMenuPage,
 	WithdrawPage,
 	DepositPage,
