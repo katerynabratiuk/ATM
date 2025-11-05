@@ -1,10 +1,10 @@
-#include "ATMSimulator.h"
+#include "ATMInterface.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    ATMSimulator window;
+    ATMInterface window;
     window.show();
     return app.exec();
 }
