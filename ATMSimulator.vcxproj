@@ -92,27 +92,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CardController.cpp" />
-    <ClCompile Include="StartWidget.cpp" />
     <QtRcc Include="ATMSimulator.qrc" />
-    <QtUic Include="ATMSimulator.ui" />
-    <QtMoc Include="ATMInterface.h" />
-    <ClCompile Include="ATMInterface.cpp" />
-    <ClCompile Include="LoginWidget.cpp" />
+    <ClCompile Include="backend\controllers\CardController.cpp" />
+    <ClCompile Include="frontend\ATMInterface.cpp" />
+    <ClCompile Include="frontend\LoginWidget.cpp" />
+    <ClCompile Include="frontend\StartWidget.cpp" />
     <ClCompile Include="main.cpp" />
-    <QtUic Include="LoginWidget.ui" />
-    <QtUic Include="StartWidget.ui" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="LoginWidget.h" />
+    <ClInclude Include="backend\controllers\CardController.h" />
+    <ClInclude Include="backend\Enums.h" />
+    <ClInclude Include="backend\controllers\ICardController.h" />
+    <ClInclude Include="backend\services\ICardService.h" />
+    <ClInclude Include="backend\Models.h" />
+    <QtMoc Include="frontend\StartWidget.h" />
+    <QtMoc Include="frontend\LoginWidget.h" />
+    <QtMoc Include="frontend\ATMInterface.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CardController.h" />
-    <ClInclude Include="Enums.h" />
-    <ClInclude Include="ICardController.h" />
-    <ClInclude Include="ICardService.h" />
-    <ClInclude Include="Models.h" />
-    <QtMoc Include="StartWidget.h" />
+    <QtUic Include="frontend\ATMSimulator.ui" />
+    <QtUic Include="frontend\LoginWidget.ui" />
+    <QtUic Include="frontend\StartWidget.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

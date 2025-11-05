@@ -2,10 +2,10 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_ATMSimulator.h"
-#include "LoginWidget.h"
-#include "StartWidget.h"
-#include "ICardController.h"
-#include "Enums.h"
+#include "frontend/LoginWidget.h"
+#include "frontend/StartWidget.h"
+#include "backend/controllers/ICardController.h"
+#include "backend/Enums.h"
 
 class ATMInterface : public QMainWindow
 {

@@ -1,4 +1,4 @@
-#include "ATMInterface.h"
+#include "frontend/ATMInterface.h"
 
 ATMInterface::ATMInterface(QWidget *parent, ICardController* cardController)
 	: QMainWindow(parent), _cardController(cardController)

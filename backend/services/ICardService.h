@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "Models.h"
+#include "backend/Models.h"
 
 class ICardService
 {
@@ -27,7 +27,7 @@ public:
 
 	void changePin(const std::string& cardNum, const std::string& newPin)
 	{
-		changePin(cardNum, newPin);
+		doChangePin(cardNum, newPin);
 	}
 
 	Card getCard(const std::string& cardNum)

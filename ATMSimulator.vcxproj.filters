@@ -26,61 +26,61 @@
     <QtRcc Include="ATMSimulator.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="ATMSimulator.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtMoc Include="ATMInterface.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClCompile Include="ATMInterface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LoginWidget.cpp">
+    <ClCompile Include="backend\controllers\CardController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StartWidget.cpp">
+    <ClCompile Include="frontend\ATMInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CardController.cpp">
+    <ClCompile Include="frontend\LoginWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="frontend\StartWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="LoginWidget.h">
+    <ClInclude Include="backend\Models.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\controllers\ICardController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\controllers\CardController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\services\ICardService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="backend\Enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="frontend\StartWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="StartWidget.h">
+    <QtMoc Include="frontend\LoginWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="frontend\ATMInterface.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="LoginWidget.ui">
+    <QtUic Include="frontend\ATMSimulator.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="StartWidget.ui">
+    <QtUic Include="frontend\LoginWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ICardController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Models.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ICardService.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CardController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <QtUic Include="frontend\StartWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

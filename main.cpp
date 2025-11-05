@@ -1,4 +1,4 @@
-#include "ATMInterface.h"
+#include "frontend/ATMInterface.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])

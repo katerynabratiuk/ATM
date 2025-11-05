@@ -3,8 +3,8 @@
 #include <QWidget>
 #include <QRegularExpressionValidator>
 #include "ui_LoginWidget.h"
-#include "ICardController.h"
-#include "Enums.h"
+#include "backend/controllers/ICardController.h"
+#include "backend/Enums.h"
 
 class LoginWidget : public QWidget
 {

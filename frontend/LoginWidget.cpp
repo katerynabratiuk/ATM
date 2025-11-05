@@ -1,4 +1,4 @@
-#include "LoginWidget.h"
+#include "frontend/LoginWidget.h"
 
 LoginWidget::LoginWidget(QWidget *parent, ICardController* cardController)
 	: QWidget(parent), _cardController(cardController)

@@ -2,7 +2,7 @@
 
 #include <QWidget>
 #include "ui_StartWidget.h"
-#include "Enums.h"
+#include "backend/Enums.h"
 
 class StartWidget : public QWidget
 {

@@ -1,4 +1,4 @@
-#include "StartWidget.h"
+#include "frontend/StartWidget.h"
 
 StartWidget::StartWidget(QWidget *parent)
 	: QWidget(parent)

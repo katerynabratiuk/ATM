@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-#include "ICardController.h"
-#include "ICardService.h"
+#include "backend/controllers/ICardController.h"
+#include "backend/services/ICardService.h"
 
 struct Session
 {
