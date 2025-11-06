@@ -5,6 +5,7 @@
 
 #include "frontend/EnterCardWidget.h"
 #include "frontend/EnterPinWidget.h"
+#include "frontend/MainMenuWidget.h"
 #include "backend/controllers/ICardController.h"
 #include "backend/Enums.h"
 #include "frontend/IPage.h"
@@ -62,6 +63,7 @@ private:
 
     EnterCardWidget* _cardPage;
     EnterPinWidget* _pinPage;
+	MainMenuWidget* _mainMenuPage;
 
     void addPages();
     void connectSlots();

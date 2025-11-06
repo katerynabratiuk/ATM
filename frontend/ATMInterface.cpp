@@ -1,7 +1,7 @@
 #include "frontend/ATMInterface.h"
 
 ATMInterface::ATMInterface(QWidget* parent)
-	: QMainWindow(parent), _cardPage(nullptr), _pinPage(nullptr)
+	: QMainWindow(parent), _cardPage(nullptr), _pinPage(nullptr), _mainMenuPage(nullptr)
 {
 	_ui.setupUi(this);
 
@@ -29,12 +29,16 @@ void ATMInterface::addPages()
 
 	_pinPage = new EnterPinWidget(_ui.widgetStack);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::EnterPinPage), _pinPage);
+
+	_mainMenuPage = new MainMenuWidget(_ui.widgetStack);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::MainMenuPage), _mainMenuPage);
 }
 
 void ATMInterface::connectSlots()
 {
 	connect(_cardPage, &EnterCardWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(_pinPage, &EnterPinWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(_mainMenuPage, &MainMenuWidget::changePage, this, &ATMInterface::changeCurrentPage);
 
 	connect(this, &ATMInterface::digitPressed, this, &ATMInterface::forwardDigit);
 	connect(this, &ATMInterface::enterPressed, this, &ATMInterface::forwardEnter);

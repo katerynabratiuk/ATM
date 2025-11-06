@@ -43,6 +43,9 @@
     <ClCompile Include="frontend\EnterCardWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="frontend\MainMenuWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="backend\Models.h">
@@ -74,6 +77,9 @@
     <QtMoc Include="frontend\EnterCardWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="frontend\MainMenuWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="frontend\ATMSimulator.ui">
@@ -83,6 +89,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="frontend\EnterCardWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="frontend\MainMenuWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
