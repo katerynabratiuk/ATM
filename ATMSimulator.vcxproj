@@ -92,12 +92,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="frontend\MainMenuWidget.cpp" />
     <QtRcc Include="ATMSimulator.qrc" />
     <ClCompile Include="backend\controllers\CardController.cpp" />
+    <ClCompile Include="frontend\EnterPinWidget.cpp" />
+    <ClCompile Include="frontend\EnterCardWidget.cpp" />
     <ClCompile Include="frontend\ATMInterface.cpp" />
-    <ClCompile Include="frontend\LoginWidget.cpp" />
-    <ClCompile Include="frontend\StartWidget.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -106,16 +105,14 @@
     <ClInclude Include="backend\controllers\ICardController.h" />
     <ClInclude Include="backend\services\ICardService.h" />
     <ClInclude Include="backend\Models.h" />
-    <QtMoc Include="frontend\MainMenuWidget.h" />
-    <QtMoc Include="frontend\StartWidget.h" />
-    <QtMoc Include="frontend\LoginWidget.h" />
+    <QtMoc Include="frontend\EnterPinWidget.h" />
+    <QtMoc Include="frontend\EnterCardWidget.h" />
     <QtMoc Include="frontend\ATMInterface.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="frontend\EnterPinWidget.ui" />
+    <QtUic Include="frontend\EnterCardWidget.ui" />
     <QtUic Include="frontend\ATMSimulator.ui" />
-    <QtUic Include="frontend\LoginWidget.ui" />
-    <QtUic Include="frontend\StartWidget.ui" />
-    <QtUic Include="frontend\MainMenuWidget.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -10,7 +10,8 @@ struct Session
 
 class CardController : public ICardController
 {
-	void doAuth(const std::string& cardNum, const std::string& pin) override;
+	void doSetCard(const std::string& cardNum) override;
+	virtual void doAuth(const std::string& pin) override;
 	void doDeauth() override;
 	void doDeposit(double amount) override;
 	void doWithdraw(double amount) override;
