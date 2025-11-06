@@ -15,3 +15,4 @@ private:
     Ui::ATMSimulatorClass ui;
 };
 
+
