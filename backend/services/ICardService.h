@@ -5,6 +5,8 @@
 class ICardService
 {
 public:
+	virtual ~ICardService() = default;
+
 	void authenticate(const std::string& cardNum, const std::string& pin)
 	{
 		doAuth(cardNum, pin);

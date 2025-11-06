@@ -5,6 +5,8 @@
 class ICardController
 {
 public:
+	virtual ~ICardController() = default;
+
 	void authenticate(const std::string& cardNum, const std::string& pin)
 	{
 		doAuth(cardNum, pin);

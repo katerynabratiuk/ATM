@@ -2,8 +2,11 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_ATMSimulator.h"
+
 #include "frontend/LoginWidget.h"
 #include "frontend/StartWidget.h"
+#include "frontend/MainMenuWidget.h"
+
 #include "backend/controllers/ICardController.h"
 #include "backend/Enums.h"
 
@@ -12,7 +15,7 @@ class ATMInterface : public QMainWindow
     Q_OBJECT
 
 public:
-    ATMInterface(QWidget *parent = nullptr, ICardController* cardController = nullptr);
+    ATMInterface(/*ICardController& cardController, */QWidget *parent = nullptr);
     ~ATMInterface();
 
 private slots:
@@ -21,10 +24,11 @@ private slots:
 private:
     Ui::ATMInterfaceClass _ui;
 
-    ICardController* _cardController;
+    // ICardController& _cardController;
 
-    LoginWidget _loginPage;
 	StartWidget _startPage;
+    LoginWidget _loginPage;
+    MainMenuWidget _mainMenuPage;
 
     void addPages();
 	void connectSlots();

@@ -1,7 +1,7 @@
 #include "frontend/LoginWidget.h"
 
-LoginWidget::LoginWidget(QWidget *parent, ICardController* cardController)
-	: QWidget(parent), _cardController(cardController)
+LoginWidget::LoginWidget(/*ICardController& cardController, */QWidget *parent)
+	: QWidget(parent)/*, _cardController(cardController)*/
 {
 	_ui.setupUi(this);
 
@@ -33,14 +33,13 @@ void LoginWidget::login()
 		return;
 	}
 
-	int attempts = 0;
 	try
 	{
-		_cardController->authenticate(_ui.cardForm->text().toStdString(),
-			_ui.pinForm->text().toStdString());
+		//_cardController->authenticate(_ui.cardForm->text().toStdString(),
+		//	_ui.pinForm->text().toStdString());
 
-		_ui.cardForm->clear();
-		_ui.pinForm->clear();
+		//_ui.cardForm->clear();
+		//_ui.pinForm->clear();
 		
 		emit changePage(Pages::MainMenuPage);
 	}

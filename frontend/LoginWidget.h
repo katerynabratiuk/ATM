@@ -2,7 +2,9 @@
 
 #include <QWidget>
 #include <QRegularExpressionValidator>
+
 #include "ui_LoginWidget.h"
+
 #include "backend/controllers/ICardController.h"
 #include "backend/Enums.h"
 
@@ -11,7 +13,7 @@ class LoginWidget : public QWidget
 	Q_OBJECT
 
 public:
-	LoginWidget(QWidget *parent = nullptr, ICardController* cardController = nullptr);
+	LoginWidget(/*ICardController& cardController, */QWidget *parent = nullptr);
 	~LoginWidget();
 
 private slots:
@@ -23,7 +25,7 @@ signals:
 private:
 	Ui::LoginWidgetClass _ui;
 
-	ICardController* _cardController;
+	// ICardController& _cardController;
 
 	void login();
 };
