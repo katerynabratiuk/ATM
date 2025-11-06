@@ -37,10 +37,10 @@
     <ClCompile Include="frontend\ATMInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="frontend\LoginWidget.cpp">
+    <ClCompile Include="frontend\EnterPinWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="frontend\StartWidget.cpp">
+    <ClCompile Include="frontend\EnterCardWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -60,15 +60,18 @@
     <ClInclude Include="backend\Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="frontend\IPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="frontend\StartWidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="frontend\LoginWidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="frontend\ATMInterface.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="frontend\EnterPinWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="frontend\EnterCardWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -76,10 +79,10 @@
     <QtUic Include="frontend\ATMSimulator.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="frontend\LoginWidget.ui">
+    <QtUic Include="frontend\EnterPinWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="frontend\StartWidget.ui">
+    <QtUic Include="frontend\EnterCardWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

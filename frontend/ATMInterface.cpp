@@ -36,15 +36,11 @@ void ATMInterface::connectSlots()
 	connect(_cardPage, &EnterCardWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(_pinPage, &EnterPinWidget::changePage, this, &ATMInterface::changeCurrentPage);
 
-	connect(this, &ATMInterface::digitPressed, _pinPage, &EnterPinWidget::onDigit);
-	connect(this, &ATMInterface::enterPressed, _pinPage, &EnterPinWidget::onEnter);
-	connect(this, &ATMInterface::clearPressed, _pinPage, &EnterPinWidget::onClear);
-	connect(this, &ATMInterface::cancelPressed, _pinPage, &EnterPinWidget::onCancel);
-
-	connect(this, &ATMInterface::digitPressed, _cardPage, &EnterCardWidget::onDigit);
-	connect(this, &ATMInterface::enterPressed, _cardPage, &EnterCardWidget::onEnter);
-	connect(this, &ATMInterface::clearPressed, _cardPage, &EnterCardWidget::onClear);
-	connect(this, &ATMInterface::cancelPressed, _cardPage, &EnterCardWidget::onCancel);
+	connect(this, &ATMInterface::digitPressed, this, &ATMInterface::forwardDigit);
+	connect(this, &ATMInterface::enterPressed, this, &ATMInterface::forwardEnter);
+	connect(this, &ATMInterface::clearPressed, this, &ATMInterface::forwardClear);
+	connect(this, &ATMInterface::cancelPressed, this, &ATMInterface::forwardCancel);
+	connect(this, &ATMInterface::sideButtonPressed, this, &ATMInterface::forwardSideButton);
 }
 
 void ATMInterface::on_btn0_clicked() { emit digitPressed(0); }
@@ -62,9 +58,34 @@ void ATMInterface::on_btnEnter_clicked() { emit enterPressed(); }
 void ATMInterface::on_btnClear_clicked() { emit clearPressed(); }
 void ATMInterface::on_btnCancel_clicked() { emit cancelPressed(); }
 
-void ATMInterface::on_btnLeft1_clicked() { emit sidePressed(false, 1); }
-void ATMInterface::on_btnLeft2_clicked() { emit sidePressed(false, 2); }
-void ATMInterface::on_btnLeft3_clicked() { emit sidePressed(false, 3); }
-void ATMInterface::on_btnRight1_clicked() { emit sidePressed(true, 1); }
-void ATMInterface::on_btnRight2_clicked() { emit sidePressed(true, 2); }
-void ATMInterface::on_btnRight3_clicked() { emit sidePressed(true, 3); }
+void ATMInterface::on_btnLeft1_clicked() { emit sideButtonPressed(false, 1); }
+void ATMInterface::on_btnLeft2_clicked() { emit sideButtonPressed(false, 2); }
+void ATMInterface::on_btnLeft3_clicked() { emit sideButtonPressed(false, 3); }
+void ATMInterface::on_btnRight1_clicked() { emit sideButtonPressed(true, 1); }
+void ATMInterface::on_btnRight2_clicked() { emit sideButtonPressed(true, 2); }
+void ATMInterface::on_btnRight3_clicked() { emit sideButtonPressed(true, 3); }
+
+void ATMInterface::forwardDigit(int digit) 
+{
+	qobject_cast<IPage*>(_ui.widgetStack->currentWidget())->onDigit(digit);
+}
+
+void ATMInterface::forwardEnter() 
+{
+	qobject_cast<IPage*>(_ui.widgetStack->currentWidget())->onEnter();
+}
+
+void ATMInterface::forwardClear() 
+{
+	qobject_cast<IPage*>(_ui.widgetStack->currentWidget())->onClear();
+}
+
+void ATMInterface::forwardCancel() 
+{
+	qobject_cast<IPage*>(_ui.widgetStack->currentWidget())->onCancel();
+}
+
+void ATMInterface::forwardSideButton(bool rightSide, int index)
+{
+	qobject_cast<IPage*>(_ui.widgetStack->currentWidget())->onSideButton(rightSide, index);
+}

@@ -7,6 +7,7 @@
 #include "frontend/EnterPinWidget.h"
 #include "backend/controllers/ICardController.h"
 #include "backend/Enums.h"
+#include "frontend/IPage.h"
 
 class ATMInterface : public QMainWindow
 {
@@ -41,12 +42,18 @@ private slots:
     void on_btnClear_clicked();
     void on_btnCancel_clicked();
 
+    void forwardDigit(int digit);
+    void forwardEnter();
+    void forwardClear();
+    void forwardCancel();
+    void forwardSideButton(bool rightSide, int index);
+
 signals:
     void digitPressed(int digit);
     void enterPressed();
     void clearPressed();
     void cancelPressed();
-    void sidePressed(bool rightSide, int index);
+    void sideButtonPressed(bool rightSide, int index);
 
 private:
     Ui::ATMInterfaceClass _ui;

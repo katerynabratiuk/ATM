@@ -17,27 +17,27 @@ EnterCardWidget::EnterCardWidget(QStackedWidget* parentStack, QWidget* parent)
 EnterCardWidget::~EnterCardWidget()
 {}
 
-void EnterCardWidget::onDigit(int digit)
+void EnterCardWidget::doOnDigit(int digit)
 {
-	if (_parentStack->currentWidget() != this) return;
+	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	_ui.cardForm->insert(QString::number(digit));
 }
 
-void EnterCardWidget::onEnter()
+void EnterCardWidget::doOnEnter()
 {
-	if (_parentStack->currentWidget() != this) return;
+	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	setCard();
 }
 
-void EnterCardWidget::onClear()
+void EnterCardWidget::doOnClear()
 {
-	if (_parentStack->currentWidget() != this) return;
+	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	_ui.cardForm->backspace();
 }
 
-void EnterCardWidget::onCancel()
+void EnterCardWidget::doOnCancel()
 {
-	if (_parentStack->currentWidget() != this) return;
+	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	clean();
 }
 

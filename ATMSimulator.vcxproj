@@ -105,6 +105,7 @@
     <ClInclude Include="backend\controllers\ICardController.h" />
     <ClInclude Include="backend\services\ICardService.h" />
     <ClInclude Include="backend\Models.h" />
+    <ClInclude Include="frontend\IPage.h" />
     <QtMoc Include="frontend\EnterPinWidget.h" />
     <QtMoc Include="frontend\EnterCardWidget.h" />
     <QtMoc Include="frontend\ATMInterface.h" />

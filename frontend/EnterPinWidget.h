@@ -6,20 +6,20 @@
 #include <QRegularExpressionValidator>
 
 #include "backend/Enums.h"
+#include "frontend/IPage.h"
 
-class EnterPinWidget : public QWidget
+class EnterPinWidget : public QWidget, public IPage
 {
 	Q_OBJECT
-
+	Q_INTERFACES(IPage)
 public:
 	EnterPinWidget(QStackedWidget* parentStack, QWidget* parent = nullptr);
 	~EnterPinWidget();
 
-public slots:
-	void onDigit(int digit);
-	void onEnter();
-	void onClear();
-	void onCancel();
+	void doOnDigit(int digit) override;
+	void doOnEnter() override;
+	void doOnClear() override;
+	void doOnCancel() override;
 
 signals:
 	void changePage(Pages);

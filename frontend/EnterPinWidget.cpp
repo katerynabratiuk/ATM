@@ -17,27 +17,27 @@ EnterPinWidget::EnterPinWidget(QStackedWidget* parentStack, QWidget * parent)
 EnterPinWidget::~EnterPinWidget()
 {}
 
-void EnterPinWidget::onDigit(int digit)
+void EnterPinWidget::doOnDigit(int digit)
 {
-	if (_parentStack->currentWidget() != this) return;
+	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	_ui.pinForm->insert(QString::number(digit));
 }
 
-void EnterPinWidget::onEnter()
+void EnterPinWidget::doOnEnter()
 {
-	if (_parentStack->currentWidget() != this) return;
+	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	authenticate();
 }
 
-void EnterPinWidget::onClear()
+void EnterPinWidget::doOnClear()
 {
-	if (_parentStack->currentWidget() != this) return;
+	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	_ui.pinForm->backspace();
 }
 
-void EnterPinWidget::onCancel()
+void EnterPinWidget::doOnCancel()
 {
-	if (_parentStack->currentWidget() != this) return;
+	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	clean();
 	emit changePage(Pages::EnterCardPage);
 }
