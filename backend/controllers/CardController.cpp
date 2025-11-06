@@ -8,20 +8,34 @@ CardController::~CardController()
 	doDeauth();
 }
 
-void CardController::doAuth(const std::string& cardNum, const std::string& pin)
+void CardController::doAuth(const std::string& pin)
 {
 	try 
 	{
 		if (_attempts >= 3)
 		{
+			doDeauth();
+
 			// tooManyAttemptsException
 			throw;
 		}
-		_service.authenticate(cardNum, pin);
+		_service.authenticate(_session->_cardNum, pin);
 	}
 	catch (const std::exception& e)
 	{
 		_attempts++;
+		throw;
+	}
+}
+
+void CardController::doSetCard(const std::string& cardNum)
+{
+	try
+	{
+		_service.getCard(cardNum);
+	}
+	catch (const std::exception& e)
+	{
 		throw;
 	}
 	_session = new Session{ cardNum };
