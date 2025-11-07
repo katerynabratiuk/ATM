@@ -1,18 +1,18 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_WithdrawWidget.h"
+#include "ui_DepositWidget.h"
 
 #include "frontend/IPage.h"
 #include "backend/Enums.h"
 
-class WithdrawWidget : public QWidget, public IPage
+class DepositWidget : public QWidget, public IPage
 {
 	Q_OBJECT
 	Q_INTERFACES(IPage)
 public:
-	WithdrawWidget(QWidget *parent = nullptr);
-	~WithdrawWidget();
+	DepositWidget(QWidget *parent = nullptr);
+	~DepositWidget();
 
 	void doOnDigit(int digit) override;
 	void doOnEnter() override;
@@ -23,11 +23,12 @@ signals:
 	void changePage(Pages);
 
 private:
-	Ui::WithdrawWidgetClass _ui;
+	Ui::DepositWidgetClass _ui;
 
 	// ICardController& _cardController;
 
 	void clean();
-	void withdraw();
+	void deposit();
 };
+
 

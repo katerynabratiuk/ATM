@@ -1,6 +1,7 @@
-#include "WithdrawWidget.h"
+#include "DepositWidget.h"
 
-WithdrawWidget::WithdrawWidget(QWidget *parent) : QWidget(parent)
+DepositWidget::DepositWidget(QWidget *parent)
+	: QWidget(parent)
 {
 	_ui.setupUi(this);
 
@@ -9,35 +10,35 @@ WithdrawWidget::WithdrawWidget(QWidget *parent) : QWidget(parent)
 	_ui.errorInfo->setStyleSheet("color: red;");
 }
 
-WithdrawWidget::~WithdrawWidget()
+DepositWidget::~DepositWidget()
 {}
 
-void WithdrawWidget::doOnDigit(int digit)
+void DepositWidget::doOnDigit(int digit)
 {
 	_ui.amountForm->insert(QString::number(digit));
 }
 
-void WithdrawWidget::doOnEnter()
+void DepositWidget::doOnEnter()
 {
-	withdraw();
+	deposit();
 }
 
-void WithdrawWidget::doOnClear()
+void DepositWidget::doOnClear()
 {
 	_ui.amountForm->backspace();
 }
 
-void WithdrawWidget::doOnCancel()
+void DepositWidget::doOnCancel()
 {
 	clean();
 	emit changePage(Pages::MainMenuPage);
 }
 
-void WithdrawWidget::withdraw()
+void DepositWidget::deposit()
 {
 	try
 	{
-		//_cardController->withdraw(_ui.amountForm->text().toInt());
+		//_cardController->deposit(_ui.amountForm->text().toInt());
 
 		clean();
 
@@ -49,7 +50,7 @@ void WithdrawWidget::withdraw()
 	}
 }
 
-void WithdrawWidget::clean()
+void DepositWidget::clean()
 {
 	_ui.amountForm->clear();
 	_ui.errorInfo->clear();
