@@ -13,9 +13,9 @@ class CardController : public ICardController
 	void doSetCard(const std::string& cardNum) override;
 	virtual void doAuth(const std::string& pin) override;
 	void doDeauth() override;
-	void doDeposit(double amount) override;
-	void doWithdraw(double amount) override;
-	void doTransfer(const std::string& targetCardNum, double amount) override;
+	void doDeposit(int amount) override;
+	void doWithdraw(int amount) override;
+	void doTransfer(const std::string& targetCardNum, int amount) override;
 	void doChangePin(const std::string& newPin) override;
 	Card doGetCard() override;
 public:

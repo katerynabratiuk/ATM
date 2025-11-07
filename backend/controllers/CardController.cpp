@@ -48,7 +48,7 @@ void CardController::doDeauth()
 	_session = nullptr;
 }
 
-void CardController::doDeposit(double amount)
+void CardController::doDeposit(int amount)
 {
 	try
 	{
@@ -60,7 +60,7 @@ void CardController::doDeposit(double amount)
 	}
 }
 
-void CardController::doWithdraw(double amount)
+void CardController::doWithdraw(int amount)
 {
 	try
 	{
@@ -72,7 +72,7 @@ void CardController::doWithdraw(double amount)
 	}
 }
 
-void CardController::doTransfer(const std::string& targetCardNum, double amount)
+void CardController::doTransfer(const std::string& targetCardNum, int amount)
 {
 	try
 	{

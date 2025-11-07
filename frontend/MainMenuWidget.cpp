@@ -51,3 +51,8 @@ void MainMenuWidget::doOnSideButton(bool rightSide, int index)
 	}
 }
 
+void MainMenuWidget::doOnCancel()
+{
+	emit changePage(Pages::EnterCardPage);
+}
+

@@ -9,5 +9,6 @@ enum class Pages
 	DepositPage,
 	TransferPage,
 	ChangePinPage,
-	HistoryPage
-};;
+	HistoryPage,
+	SuccessPage
+};

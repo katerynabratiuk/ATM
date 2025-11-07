@@ -46,6 +46,9 @@
     <ClCompile Include="frontend\MainMenuWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="frontend\WithdrawWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="backend\Models.h">
@@ -80,6 +83,9 @@
     <QtMoc Include="frontend\MainMenuWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="frontend\WithdrawWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="frontend\ATMSimulator.ui">
@@ -92,6 +98,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="frontend\MainMenuWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="frontend\WithdrawWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

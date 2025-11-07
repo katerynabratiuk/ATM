@@ -15,10 +15,16 @@ ATMInterface::~ATMInterface()
 {
 	delete _cardPage;
 	delete _pinPage;
+	delete _mainMenuPage;
+	delete _withdrawPage;
 }
 
 void ATMInterface::changeCurrentPage(Pages page)
 {
+	if (page == Pages::EnterCardPage)
+	{
+		/*_cardController.Deauth();*/
+	}
 	_ui.widgetStack->setCurrentIndex(static_cast<int>(page));
 }
 
@@ -32,6 +38,9 @@ void ATMInterface::addPages()
 
 	_mainMenuPage = new MainMenuWidget(_ui.widgetStack);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::MainMenuPage), _mainMenuPage);
+
+	_withdrawPage = new WithdrawWidget(_ui.widgetStack);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::WithdrawPage), _withdrawPage);
 }
 
 void ATMInterface::connectSlots()
@@ -39,6 +48,7 @@ void ATMInterface::connectSlots()
 	connect(_cardPage, &EnterCardWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(_pinPage, &EnterPinWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(_mainMenuPage, &MainMenuWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(_withdrawPage, &WithdrawWidget::changePage, this, &ATMInterface::changeCurrentPage);
 
 	connect(this, &ATMInterface::digitPressed, this, &ATMInterface::forwardDigit);
 	connect(this, &ATMInterface::enterPressed, this, &ATMInterface::forwardEnter);

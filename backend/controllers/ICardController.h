@@ -22,17 +22,17 @@ public:
 		doDeauth();
 	}
 
-	void deposit(double amount)
+	void deposit(int amount)
 	{
 		doDeposit(amount);
 	}
 
-	void withdraw(double amount)
+	void withdraw(int amount)
 	{
 		doWithdraw(amount);
 	}
 
-	void transfer(const std::string& targetCardNum, double amount)
+	void transfer(const std::string& targetCardNum, int amount)
 	{
 		doTransfer(targetCardNum, amount);
 	}
@@ -50,9 +50,9 @@ private:
 	virtual void doSetCard(const std::string& cardNum) = 0;
 	virtual void doAuth(const std::string& pin) = 0;
 	virtual void doDeauth() = 0;
-	virtual void doDeposit(double amount) = 0;
-	virtual void doWithdraw(double amount) = 0;
-	virtual void doTransfer(const std::string& targetCardNum, double amount) = 0;
+	virtual void doDeposit(int amount) = 0;
+	virtual void doWithdraw(int amount) = 0;
+	virtual void doTransfer(const std::string& targetCardNum, int amount) = 0;
 	virtual void doChangePin(const std::string& newPin) = 0;
 	virtual Card doGetCard() = 0;
 };

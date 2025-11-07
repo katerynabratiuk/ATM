@@ -16,6 +16,7 @@ public:
 	~MainMenuWidget();
 
 	void doOnSideButton(bool rightSide, int index) override;
+	void doOnCancel() override;
 
 signals:
 	void changePage(Pages);

@@ -1,20 +1,19 @@
 #pragma once
 
 #include <QWidget>
+#include "ui_WithdrawWidget.h"
 #include <QStackedWidget>
-#include "ui_EnterPinWidget.h"
-#include <QRegularExpressionValidator>
 
-#include "backend/Enums.h"
 #include "frontend/IPage.h"
+#include "backend/Enums.h"
 
-class EnterPinWidget : public QWidget, public IPage
+class WithdrawWidget : public QWidget, public IPage
 {
 	Q_OBJECT
 	Q_INTERFACES(IPage)
 public:
-	EnterPinWidget(QStackedWidget* parentStack, QWidget* parent = nullptr);
-	~EnterPinWidget();
+	WithdrawWidget(QStackedWidget* parentStack, QWidget *parent = nullptr);
+	~WithdrawWidget();
 
 	void doOnDigit(int digit) override;
 	void doOnEnter() override;
@@ -25,10 +24,11 @@ signals:
 	void changePage(Pages);
 
 private:
-	Ui::EnterPinWidgetClass _ui;
+	Ui::WithdrawWidgetClass _ui;
 	QStackedWidget* _parentStack;
 
-	void clean();
-	void authenticate();
+	// ICardController& _cardController;
+
+	void withdraw();
 };
 

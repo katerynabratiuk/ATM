@@ -39,6 +39,7 @@ void EnterPinWidget::doOnCancel()
 {
 	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	clean();
+	// _cardController.Deauth();
 	emit changePage(Pages::EnterCardPage);
 }
 
