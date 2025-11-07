@@ -12,7 +12,7 @@ class MainMenuWidget : public QWidget, public IPage
 	Q_OBJECT
 	Q_INTERFACES(IPage)
 public:
-	MainMenuWidget(QStackedWidget* parentStack, QWidget* parent = nullptr);
+	MainMenuWidget(QWidget* parent = nullptr);
 	~MainMenuWidget();
 
 	void doOnSideButton(bool rightSide, int index) override;
@@ -23,6 +23,5 @@ signals:
 
 private:
 	Ui::MainMenuWidgetClass _ui;
-	QStackedWidget* _parentStack;
 };
 

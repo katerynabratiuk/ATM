@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include <QStackedWidget>
 #include "ui_EnterCardWidget.h"
 #include <QRegularExpressionValidator>
 
@@ -13,7 +12,7 @@ class EnterCardWidget : public QWidget, public IPage
 	Q_OBJECT
 	Q_INTERFACES(IPage)
 public:
-	EnterCardWidget(QStackedWidget* parentStack, QWidget* parent = nullptr);
+	EnterCardWidget(QWidget* parent = nullptr);
 	~EnterCardWidget();
 
 	void doOnDigit(int digit) override;
@@ -26,7 +25,6 @@ signals:
 
 private:
 	Ui::EnterCardWidgetClass _ui;
-	QStackedWidget* _parentStack;
 
 	// ICardController& _cardController;
 

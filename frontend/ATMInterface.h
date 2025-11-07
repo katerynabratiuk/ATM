@@ -62,10 +62,10 @@ private:
 
     // ICardController& _cardController;
 
-    EnterCardWidget* _cardPage;
-    EnterPinWidget* _pinPage;
-	MainMenuWidget* _mainMenuPage;
-    WithdrawWidget* _withdrawPage;
+    EnterCardWidget _cardPage;
+    EnterPinWidget _pinPage;
+	MainMenuWidget _mainMenuPage;
+    WithdrawWidget _withdrawPage;
 
     void addPages();
     void connectSlots();

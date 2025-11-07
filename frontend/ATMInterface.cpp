@@ -1,7 +1,7 @@
 #include "frontend/ATMInterface.h"
 
 ATMInterface::ATMInterface(QWidget* parent)
-	: QMainWindow(parent), _cardPage(nullptr), _pinPage(nullptr), _mainMenuPage(nullptr)
+	: QMainWindow(parent)
 {
 	_ui.setupUi(this);
 
@@ -12,12 +12,7 @@ ATMInterface::ATMInterface(QWidget* parent)
 }
 
 ATMInterface::~ATMInterface()
-{
-	delete _cardPage;
-	delete _pinPage;
-	delete _mainMenuPage;
-	delete _withdrawPage;
-}
+{}
 
 void ATMInterface::changeCurrentPage(Pages page)
 {
@@ -30,25 +25,18 @@ void ATMInterface::changeCurrentPage(Pages page)
 
 void ATMInterface::addPages()
 {
-	_cardPage = new EnterCardWidget(_ui.widgetStack);
-	_ui.widgetStack->insertWidget(static_cast<int>(Pages::EnterCardPage), _cardPage);
-
-	_pinPage = new EnterPinWidget(_ui.widgetStack);
-	_ui.widgetStack->insertWidget(static_cast<int>(Pages::EnterPinPage), _pinPage);
-
-	_mainMenuPage = new MainMenuWidget(_ui.widgetStack);
-	_ui.widgetStack->insertWidget(static_cast<int>(Pages::MainMenuPage), _mainMenuPage);
-
-	_withdrawPage = new WithdrawWidget(_ui.widgetStack);
-	_ui.widgetStack->insertWidget(static_cast<int>(Pages::WithdrawPage), _withdrawPage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::EnterCardPage), &_cardPage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::EnterPinPage), &_pinPage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::MainMenuPage), &_mainMenuPage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::WithdrawPage), &_withdrawPage);
 }
 
 void ATMInterface::connectSlots()
 {
-	connect(_cardPage, &EnterCardWidget::changePage, this, &ATMInterface::changeCurrentPage);
-	connect(_pinPage, &EnterPinWidget::changePage, this, &ATMInterface::changeCurrentPage);
-	connect(_mainMenuPage, &MainMenuWidget::changePage, this, &ATMInterface::changeCurrentPage);
-	connect(_withdrawPage, &WithdrawWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(&_cardPage, &EnterCardWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(&_pinPage, &EnterPinWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(&_mainMenuPage, &MainMenuWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(&_withdrawPage, &WithdrawWidget::changePage, this, &ATMInterface::changeCurrentPage);
 
 	connect(this, &ATMInterface::digitPressed, this, &ATMInterface::forwardDigit);
 	connect(this, &ATMInterface::enterPressed, this, &ATMInterface::forwardEnter);

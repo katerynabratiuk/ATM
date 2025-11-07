@@ -1,8 +1,7 @@
 #include "EnterCardWidget.h"
 #include "EnterPinWidget.h"
 
-EnterCardWidget::EnterCardWidget(QStackedWidget* parentStack, QWidget* parent)
-	: QWidget(parent), _parentStack(parentStack)
+EnterCardWidget::EnterCardWidget(QWidget* parent) : QWidget(parent)
 {
 	_ui.setupUi(this);
 
@@ -19,25 +18,21 @@ EnterCardWidget::~EnterCardWidget()
 
 void EnterCardWidget::doOnDigit(int digit)
 {
-	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	_ui.cardForm->insert(QString::number(digit));
 }
 
 void EnterCardWidget::doOnEnter()
 {
-	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	setCard();
 }
 
 void EnterCardWidget::doOnClear()
 {
-	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	_ui.cardForm->backspace();
 }
 
 void EnterCardWidget::doOnCancel()
 {
-	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	clean();
 }
 

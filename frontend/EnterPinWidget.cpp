@@ -1,7 +1,6 @@
 #include "EnterPinWidget.h"
 
-EnterPinWidget::EnterPinWidget(QStackedWidget* parentStack, QWidget * parent)
-	: QWidget(parent), _parentStack(parentStack)
+EnterPinWidget::EnterPinWidget(QWidget * parent) : QWidget(parent)
 {
 	_ui.setupUi(this);
 
@@ -19,25 +18,21 @@ EnterPinWidget::~EnterPinWidget()
 
 void EnterPinWidget::doOnDigit(int digit)
 {
-	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	_ui.pinForm->insert(QString::number(digit));
 }
 
 void EnterPinWidget::doOnEnter()
 {
-	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	authenticate();
 }
 
 void EnterPinWidget::doOnClear()
 {
-	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	_ui.pinForm->backspace();
 }
 
 void EnterPinWidget::doOnCancel()
 {
-	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	clean();
 	// _cardController.Deauth();
 	emit changePage(Pages::EnterCardPage);

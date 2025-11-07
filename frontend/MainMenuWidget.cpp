@@ -1,7 +1,6 @@
 #include "MainMenuWidget.h"
 
-MainMenuWidget::MainMenuWidget(QStackedWidget* parentStack, QWidget *parent)
-	: QWidget(parent), _parentStack(parentStack)
+MainMenuWidget::MainMenuWidget(QWidget *parent) : QWidget(parent)
 {
 	_ui.setupUi(this);
 
@@ -17,7 +16,6 @@ MainMenuWidget::~MainMenuWidget()
 
 void MainMenuWidget::doOnSideButton(bool rightSide, int index)
 {
-	if (_parentStack == nullptr || _parentStack->currentWidget() != this) return;
 	if (rightSide)
 	{
 		switch (index)

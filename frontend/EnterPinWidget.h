@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include <QStackedWidget>
 #include "ui_EnterPinWidget.h"
 #include <QRegularExpressionValidator>
 
@@ -13,7 +12,7 @@ class EnterPinWidget : public QWidget, public IPage
 	Q_OBJECT
 	Q_INTERFACES(IPage)
 public:
-	EnterPinWidget(QStackedWidget* parentStack, QWidget* parent = nullptr);
+	EnterPinWidget(QWidget* parent = nullptr);
 	~EnterPinWidget();
 
 	void doOnDigit(int digit) override;
@@ -26,7 +25,6 @@ signals:
 
 private:
 	Ui::EnterPinWidgetClass _ui;
-	QStackedWidget* _parentStack;
 
 	void clean();
 	void authenticate();
