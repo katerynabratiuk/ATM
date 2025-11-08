@@ -31,6 +31,8 @@ void ATMInterface::addPages()
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::WithdrawPage), &_withdrawPage);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::DepositPage), &_depositPage);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::TransferPage), &_transferPage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::ChangePinPage), &_changePinPage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::SuccessPage), &_successPage);
 }
 
 void ATMInterface::connectSlots()
@@ -42,6 +44,7 @@ void ATMInterface::connectSlots()
 	connect(&_transferPage, &TransferWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(&_depositPage, &DepositWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(&_changePinPage, &ChangePinWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(&_successPage, &SuccessWidget::changePage, this, &ATMInterface::changeCurrentPage);
 
 	connect(this, &ATMInterface::digitPressed, this, &ATMInterface::forwardDigit);
 	connect(this, &ATMInterface::enterPressed, this, &ATMInterface::forwardEnter);

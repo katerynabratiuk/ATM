@@ -10,6 +10,7 @@
 #include "frontend/TransferWidget.h"
 #include "frontend/DepositWidget.h"
 #include "frontend/ChangePinWidget.h"
+#include "frontend/SuccessWidget.h"
 #include "backend/controllers/ICardController.h"
 #include "backend/Enums.h"
 #include "frontend/IPage.h"
@@ -72,6 +73,7 @@ private:
 	DepositWidget _depositPage;
 	TransferWidget _transferPage;
     ChangePinWidget _changePinPage;
+	SuccessWidget _successPage;
 
     void addPages();
     void connectSlots();
