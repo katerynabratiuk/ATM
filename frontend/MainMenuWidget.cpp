@@ -9,6 +9,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) : QWidget(parent)
 	_ui.optTransfer->setStyleSheet("QLabel { background-color : gray; color : black; }");
 	_ui.optPin->setStyleSheet("QLabel { background-color : gray; color : black; }");
 	_ui.optHistory->setStyleSheet("QLabel { background-color : gray; color : black; }");
+	_ui.optBalance->setStyleSheet("QLabel { background-color : gray; color : black; }");
 }
 
 MainMenuWidget::~MainMenuWidget()
@@ -25,6 +26,9 @@ void MainMenuWidget::doOnSideButton(bool rightSide, int index)
 			break;
 		case 2:
 			emit changePage(Pages::HistoryPage);
+			break;
+		case 3:
+			emit changePage(Pages::BalancePage);
 			break;
 		default:
 			break;

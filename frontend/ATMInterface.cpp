@@ -20,6 +20,10 @@ void ATMInterface::changeCurrentPage(Pages page)
 	{
 		/*_cardController.Deauth();*/
 	}
+	else if (page == Pages::BalancePage)
+	{
+		_balancePage.show();
+	}
 	_ui.widgetStack->setCurrentIndex(static_cast<int>(page));
 }
 
@@ -33,6 +37,7 @@ void ATMInterface::addPages()
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::TransferPage), &_transferPage);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::ChangePinPage), &_changePinPage);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::SuccessPage), &_successPage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::BalancePage), &_balancePage);
 }
 
 void ATMInterface::connectSlots()
@@ -45,6 +50,7 @@ void ATMInterface::connectSlots()
 	connect(&_depositPage, &DepositWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(&_changePinPage, &ChangePinWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(&_successPage, &SuccessWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(&_balancePage, &BalanceWidget::changePage, this, &ATMInterface::changeCurrentPage);
 
 	connect(this, &ATMInterface::digitPressed, this, &ATMInterface::forwardDigit);
 	connect(this, &ATMInterface::enterPressed, this, &ATMInterface::forwardEnter);
