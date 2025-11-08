@@ -5,6 +5,7 @@ ATMInterface::ATMInterface(QWidget* parent)
 {
 	_ui.setupUi(this);
 
+	setVisuals();
 	addPages();
 	connectSlots();
 
@@ -25,6 +26,19 @@ void ATMInterface::changeCurrentPage(Pages page)
 		_balancePage.show();
 	}
 	_ui.widgetStack->setCurrentIndex(static_cast<int>(page));
+}
+
+void ATMInterface::setVisuals()
+{
+	// setFixedSize(QSize(762, 788));
+	setFixedSize(QSize(762, 700));
+
+	QApplication::setStyle(QStyleFactory::create("windows"));
+	//QApplication::setStyle(QStyleFactory::create("fusion"));
+
+	_ui.btnCancel->setStyleSheet("QPushButton { background-color : red; }");
+	_ui.btnClear->setStyleSheet("QPushButton { background-color : #ffbf00; }");
+	_ui.btnEnter->setStyleSheet("QPushButton { background-color : green; }");
 }
 
 void ATMInterface::addPages()

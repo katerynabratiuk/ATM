@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QStyleFactory>
 #include "ui_ATMSimulator.h"
 
 #include "frontend/EnterCardWidget.h"
@@ -77,6 +78,7 @@ private:
 	SuccessWidget _successPage;
     BalanceWidget _balancePage;
 
+	void setVisuals();
     void addPages();
     void connectSlots();
 };
