@@ -6,11 +6,12 @@ EnterPinWidget::EnterPinWidget(QWidget * parent) : QWidget(parent)
 
 	_ui.pinForm->setReadOnly(true);
 	_ui.pinForm->setMaxLength(4);
-	_ui.errorInfo->clear();
 	_ui.errorInfo->setStyleSheet("color: red;");
 
 	_ui.pinForm->setEchoMode(QLineEdit::Password);
 	_ui.pinForm->setValidator(new QRegularExpressionValidator(QRegularExpression("^\\d{4}$"), _ui.pinForm));
+
+	clean();
 }
 
 EnterPinWidget::~EnterPinWidget()

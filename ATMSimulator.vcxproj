@@ -92,8 +92,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="frontend\DepositWidget.cpp" />
     <ClCompile Include="frontend\MainMenuWidget.cpp" />
     <ClCompile Include="frontend\WithdrawWidget.cpp" />
+    <ClCompile Include="frontend\TransferWidget.cpp" />
     <QtRcc Include="ATMSimulator.qrc" />
     <ClCompile Include="backend\controllers\CardController.cpp" />
     <ClCompile Include="frontend\EnterPinWidget.cpp" />
@@ -107,6 +109,8 @@
     <ClInclude Include="backend\controllers\ICardController.h" />
     <ClInclude Include="backend\services\ICardService.h" />
     <ClInclude Include="backend\Models.h" />
+    <QtMoc Include="frontend\TransferWidget.h" />
+    <QtMoc Include="frontend\DepositWidget.h" />
     <ClInclude Include="frontend\IPage.h" />
     <QtMoc Include="frontend\WithdrawWidget.h" />
     <QtMoc Include="frontend\MainMenuWidget.h" />
@@ -115,11 +119,13 @@
     <QtMoc Include="frontend\ATMInterface.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="frontend\DepositWidget.ui" />
     <QtUic Include="frontend\EnterPinWidget.ui" />
     <QtUic Include="frontend\EnterCardWidget.ui" />
     <QtUic Include="frontend\ATMSimulator.ui" />
     <QtUic Include="frontend\MainMenuWidget.ui" />
     <QtUic Include="frontend\WithdrawWidget.ui" />
+    <QtUic Include="frontend\TransferWidget.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -5,8 +5,9 @@ WithdrawWidget::WithdrawWidget(QWidget *parent) : QWidget(parent)
 	_ui.setupUi(this);
 
 	_ui.amountForm->setReadOnly(true);
-	_ui.errorInfo->clear();
 	_ui.errorInfo->setStyleSheet("color: red;");
+
+	clean();
 }
 
 WithdrawWidget::~WithdrawWidget()
@@ -35,6 +36,12 @@ void WithdrawWidget::doOnCancel()
 
 void WithdrawWidget::withdraw()
 {
+	if (_ui.amountForm->text().isEmpty())
+	{
+		_ui.errorInfo->setText("Please enter an amount to deposit.");
+		return;
+	}
+
 	try
 	{
 		//_cardController->withdraw(_ui.amountForm->text().toInt());

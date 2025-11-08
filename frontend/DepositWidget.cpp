@@ -6,8 +6,9 @@ DepositWidget::DepositWidget(QWidget *parent)
 	_ui.setupUi(this);
 
 	_ui.amountForm->setReadOnly(true);
-	_ui.errorInfo->clear();
 	_ui.errorInfo->setStyleSheet("color: red;");
+
+	clean();
 }
 
 DepositWidget::~DepositWidget()
@@ -36,6 +37,12 @@ void DepositWidget::doOnCancel()
 
 void DepositWidget::deposit()
 {
+	if (_ui.amountForm->text().isEmpty())
+	{
+		_ui.errorInfo->setText("Please enter an amount to deposit.");
+		return;
+	}
+
 	try
 	{
 		//_cardController->deposit(_ui.amountForm->text().toInt());

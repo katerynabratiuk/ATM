@@ -7,10 +7,11 @@ EnterCardWidget::EnterCardWidget(QWidget* parent) : QWidget(parent)
 
 	_ui.cardForm->setReadOnly(true);
 	_ui.cardForm->setMaxLength(13);
-	_ui.errorInfo->clear();
 	_ui.errorInfo->setStyleSheet("color: red;");
 
 	_ui.cardForm->setValidator(new QRegularExpressionValidator(QRegularExpression("^\\d{13}$"), _ui.cardForm));
+
+	clean();
 }
 
 EnterCardWidget::~EnterCardWidget()

@@ -49,6 +49,12 @@
     <ClCompile Include="frontend\WithdrawWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="frontend\DepositWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="frontend\TransferWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="backend\Models.h">
@@ -86,6 +92,12 @@
     <QtMoc Include="frontend\WithdrawWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="frontend\DepositWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="frontend\TransferWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="frontend\ATMSimulator.ui">
@@ -101,6 +113,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="frontend\WithdrawWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="frontend\DepositWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="frontend\TransferWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

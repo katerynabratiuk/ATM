@@ -63,7 +63,7 @@
         </font>
        </property>
        <property name="placeholderText">
-        <string>Enter Card Number</string>
+        <string>Enter card number</string>
        </property>
       </widget>
      </item>

@@ -7,6 +7,8 @@
 #include "frontend/EnterPinWidget.h"
 #include "frontend/MainMenuWidget.h"
 #include "frontend/WithdrawWidget.h"
+#include "frontend/TransferWidget.h"
+#include "frontend/DepositWidget.h"
 #include "backend/controllers/ICardController.h"
 #include "backend/Enums.h"
 #include "frontend/IPage.h"
@@ -66,6 +68,8 @@ private:
     EnterPinWidget _pinPage;
 	MainMenuWidget _mainMenuPage;
     WithdrawWidget _withdrawPage;
+	DepositWidget _depositPage;
+	TransferWidget _transferPage;
 
     void addPages();
     void connectSlots();
