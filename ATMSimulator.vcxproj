@@ -92,6 +92,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChangePinWidget.cpp" />
     <ClCompile Include="frontend\DepositWidget.cpp" />
     <ClCompile Include="frontend\MainMenuWidget.cpp" />
     <ClCompile Include="frontend\WithdrawWidget.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="backend\Models.h" />
     <QtMoc Include="frontend\TransferWidget.h" />
     <QtMoc Include="frontend\DepositWidget.h" />
+    <QtMoc Include="ChangePinWidget.h" />
     <ClInclude Include="frontend\IPage.h" />
     <QtMoc Include="frontend\WithdrawWidget.h" />
     <QtMoc Include="frontend\MainMenuWidget.h" />
@@ -119,6 +121,7 @@
     <QtMoc Include="frontend\ATMInterface.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="ChangePinWidget.ui" />
     <QtUic Include="frontend\DepositWidget.ui" />
     <QtUic Include="frontend\EnterPinWidget.ui" />
     <QtUic Include="frontend\EnterCardWidget.ui" />

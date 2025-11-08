@@ -1,6 +1,7 @@
-#include "EnterPinWidget.h"
+#include "ChangePinWidget.h"
 
-EnterPinWidget::EnterPinWidget(QWidget * parent) : QWidget(parent)
+ChangePinWidget::ChangePinWidget(QWidget *parent)
+	: QWidget(parent)
 {
 	_ui.setupUi(this);
 
@@ -14,31 +15,31 @@ EnterPinWidget::EnterPinWidget(QWidget * parent) : QWidget(parent)
 	clean();
 }
 
-EnterPinWidget::~EnterPinWidget()
+ChangePinWidget::~ChangePinWidget()
 {}
 
-void EnterPinWidget::doOnDigit(int digit)
+void ChangePinWidget::doOnDigit(int digit)
 {
 	_ui.pinForm->insert(QString::number(digit));
 }
 
-void EnterPinWidget::doOnEnter()
+void ChangePinWidget::doOnEnter()
 {
-	authenticate();
+	change();
 }
 
-void EnterPinWidget::doOnClear()
+void ChangePinWidget::doOnClear()
 {
 	_ui.pinForm->backspace();
 }
 
-void EnterPinWidget::doOnCancel()
+void ChangePinWidget::doOnCancel()
 {
 	clean();
-	emit changePage(Pages::EnterCardPage);
+	emit changePage(Pages::MainMenuPage);
 }
 
-void EnterPinWidget::authenticate()
+void ChangePinWidget::change()
 {
 	if (!_ui.pinForm->hasAcceptableInput())
 	{
@@ -48,11 +49,11 @@ void EnterPinWidget::authenticate()
 
 	try
 	{
-		//_cardController->authenticate(_ui.pinForm->text().toStdString());
+		//_cardController->changePin(_ui.pinForm->text().toStdString());
 
 		clean();
 
-		emit changePage(Pages::MainMenuPage);
+		emit changePage(Pages::SuccessPage);
 	}
 	catch (const std::exception& e)
 	{
@@ -60,7 +61,7 @@ void EnterPinWidget::authenticate()
 	}
 }
 
-void EnterPinWidget::clean()
+void ChangePinWidget::clean()
 {
 	_ui.pinForm->clear();
 	_ui.errorInfo->clear();

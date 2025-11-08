@@ -9,6 +9,7 @@
 #include "frontend/WithdrawWidget.h"
 #include "frontend/TransferWidget.h"
 #include "frontend/DepositWidget.h"
+#include "frontend/ChangePinWidget.h"
 #include "backend/controllers/ICardController.h"
 #include "backend/Enums.h"
 #include "frontend/IPage.h"
@@ -65,11 +66,12 @@ private:
     // ICardController& _cardController;
 
     EnterCardWidget _cardPage;
-    EnterPinWidget _pinPage;
+    EnterPinWidget _enterPinPage;
 	MainMenuWidget _mainMenuPage;
     WithdrawWidget _withdrawPage;
 	DepositWidget _depositPage;
 	TransferWidget _transferPage;
+    ChangePinWidget _changePinPage;
 
     void addPages();
     void connectSlots();
