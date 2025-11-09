@@ -1,48 +1,89 @@
 #include "backend/repositories/CardRepository.h"
-#include "backend/external/decimal.h"
+#include "backend/models/Card.h"
+#include "backend/core/Money.h"
 #include <iostream>
 #include <pqxx/pqxx>
 #include <pqxx/zview.hxx>
 #include <pqxx/params.hxx>
 
-void CardRepository::doAuth(const std::string& cardNumber,
-    const std::string& pinCode)
-{
+
+void CardRepository::doDeposit(const std::string& cardNumber, atm::money::Money amount) {
+    auto& conn = _connection.getConnection();
+
+    pqxx::work txn{ conn };
+
+    const std::string_view query =
+        "UPDATE card "
+        "SET balance = balance + $2 "
+        "WHERE card_number = $1;";
+
+    txn.exec_params(query, cardNumber, atm::money::to_string(amount));
+    txn.commit();
+    return;
+}
+
+void CardRepository::doWithdraw(const std::string& cardNumber, atm::money::Money amount) {
+    auto& conn = _connection.getConnection();
+
+    pqxx::work txn{ conn };
+
+    const std::string_view query =
+        "UPDATE card "
+        "SET balance = balance - $2 "
+        "WHERE card_number = $1;";
+
+    txn.exec_params(query, cardNumber, atm::money::to_string(amount));
+    txn.commit();
+    return;
+}
+
+void CardRepository::doTransfer(
+    const std::string& initiatorCardNumber,
+    const std::string& targetCardNumber,
+    atm::money::Money amount
+) {
+    doWithdraw(initiatorCardNumber, amount);
+    doDeposit(targetCardNumber, amount);
+    return;
+}
+
+void CardRepository::doChangePin(const std::string& cardNumber, const std::string& pin) {
+    auto& conn = _connection.getConnection();
+
+    pqxx::work txn{ conn };
+
+    const std::string_view query =
+        "UPDATE card "
+        "SET pin_hash = crypt($2, pin_hash) "
+        "WHERE card_number = $1;";
+
+    txn.exec_params(query, cardNumber, pin);
+    txn.commit();
+    return;
+}
+
+Card CardRepository::doGetCard(const std::string& cardNumber){
     auto& conn = _connection.getConnection();
 
     pqxx::read_transaction txn{ conn };
 
-    static constexpr std::string_view query =
-        "SELECT 1 "
-        "FROM public.card "
-        "WHERE card_number = $1 "
-        "  AND pin_hash = crypt($2, pin_hash) ";
+    const std::string_view query =
+        "SELECT * "
+        "FROM card "
+        "WHERE card_number = $1";
 
-    pqxx::result r = txn.exec_params(query, cardNumber, pinCode);
+    pqxx::result result = txn.exec_params(query, cardNumber);
 
-    if (r.empty()) {
-        throw std::runtime_error("Authentication failed: card not found or wrong PIN");
-    }
-}
+    auto row = result[0];
 
+    Card card;
+    card._cardNumber = row["card_number"].as<std::string>();;
+    card._firstName = row["first_name"].as<std::string>();;
+    card._lastName = row["last_name"].as<std::string>();;
+    card._pin = row["pin_hash"].as<std::string>();;
 
+    card._balance = atm::money::Money{ row["balance"].as<std::string>() };
+    card._creditLimit = atm::money::Money{ row["credit_limit"].as<std::string>() };
 
-void CardRepository::doDeposit(const std::string&, atm::money::Money) {
-    return;
-}
-
-void CardRepository::doWithdraw(const std::string&, atm::money::Money) {
-    return;
-}
-
-void CardRepository::doTransfer(const std::string&, atm::money::Money) {
-    return;
-}
-
-void CardRepository::doChangePin(const std::string&, const std::string&) {
-    return;
-}
-
-Card CardRepository::doGetCard(const std::string&) {
-    return Card{};
+    return card;
 }
