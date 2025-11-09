@@ -1,5 +1,4 @@
 #include "backend/repositories/CardRepository.h"
-#include "backend/utils/decimal.h"
 #include <iostream>
 #include <pqxx/pqxx>
 #include <pqxx/zview.hxx>
