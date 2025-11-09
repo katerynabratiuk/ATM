@@ -5,8 +5,13 @@ TransferWidget::TransferWidget(QWidget* parent)
 {
 	_ui.setupUi(this);
 
-	_ui.optMove->setText("   UP\nDOWN");
-	_ui.optMove->setStyleSheet("QLabel { background-color : gray; color : black; }");
+	_ui.label->setText("  KishkaBabusi");
+	_ui.label->setStyleSheet("QLabel { background-color : purple; color : white; }");
+
+	_ui.btnUp->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+	_ui.btnDown->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+	_ui.btnUp->setCheckable(true);
+	_ui.btnDown->setCheckable(true);
 
 	_ui.amountForm->setReadOnly(true);
 	_ui.cardForm->setReadOnly(true);
@@ -62,6 +67,8 @@ void TransferWidget::doOnSideButton(bool rightSide, int index)
 	if (rightSide && index == 2)
 	{
 		_top = !_top;
+		_ui.btnUp->setChecked(_top);
+		_ui.btnDown->setChecked(!_top);
 	}
 }
 

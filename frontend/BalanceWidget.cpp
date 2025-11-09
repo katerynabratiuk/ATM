@@ -27,7 +27,7 @@ void BalanceWidget::show()
 	try
 	{
 		Card card/* = _cardController.getCard()*/;
-		_ui.bValue->setText(QString::number(card._balance));
+		_ui.bValue->setText(QString::number(card._balance) + " uah");
 		if (card._creditLimit <= 0)
 		{
 			_ui.clValue->setText("not a credit card");
