@@ -11,6 +11,8 @@ namespace atm::money {
 
     using Money = dec::decimal<kScale>;
 
+    inline Money money(long double x) { return Money{ x }; }
+
     inline std::string to_string(const Money& x) {
         std::ostringstream oss;
         oss << std::fixed << std::setprecision(kScale) << x;
