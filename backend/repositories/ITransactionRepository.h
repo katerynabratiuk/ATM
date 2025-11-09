@@ -1,15 +1,22 @@
 #pragma once
-
 #include "backend/models/Transaction.h"
 #include <vector>
-#include <string>
 
-class ITransactionRepository
-{
+class ITransactionRepository {
 public:
-    virtual ~ITransactionRepository() = default;
+	void addTransaction(Transaction transaction) {
+		return doCreateTransaction(transaction);
+	}
+	std::vector<Transaction> listTransactions(const std::string& cardNumber) {
+		return doListTransactions(cardNumber);
+	}
+	Transaction getLastTransaction(const std::string& cardNumber) {
+		return doGetLastTransaction(cardNumber);
+	}
 
-    virtual std::vector<Transaction> listByCard(const std::string& cardNumber, int limit, int offset) = 0;
-    virtual Transaction getLast(const std::string& cardNumber) = 0;
-    virtual void save(const Transaction& tx) = 0;
+private:
+	virtual void doCreateTransaction(Transaction transaction) = 0;
+	virtual std::vector<Transaction> doListTransactions(const std::string& cardNumber) = 0;
+	virtual Transaction doGetLastTransaction(const std::string& cardNumber) = 0;
+	
 };

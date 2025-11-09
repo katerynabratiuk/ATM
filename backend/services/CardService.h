@@ -1,4 +1,4 @@
-#pragma once // Замість #include "backend/services/ICardService.h"
+#pragma once // Г‡Г Г¬ВіГ±ГІГј #include "backend/services/ICardService.h"
 
 #include "backend/services/ICardService.h"
 #include "backend/repositories/ICardRepository.h"

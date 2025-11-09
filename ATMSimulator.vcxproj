@@ -104,6 +104,7 @@
     <ClCompile Include="frontend\EnterPinWidget.cpp" />
     <ClCompile Include="frontend\EnterCardWidget.cpp" />
     <ClCompile Include="frontend\ATMInterface.cpp" />
+    <ClCompile Include="CardRepository.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
