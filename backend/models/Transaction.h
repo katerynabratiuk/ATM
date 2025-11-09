@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <chrono>
-#include "decimal.h"
+#include "backend/core/Money.h"
 
 enum class TransactionType {
 	DEPOSIT,
@@ -21,6 +21,6 @@ struct Transaction
 	std::string toCardNumber;
 	std::chrono::time_point<std::chrono::system_clock> time;
 	TransactionType transactionType;
-	dec::decimal<2> amount;
+	atm::money::Money amount;
 	TransactionStatus transactionStatus;
 };
