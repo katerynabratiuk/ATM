@@ -26,15 +26,11 @@ void CardRepository::doAuth(const std::string& cardNumber,
 
 
 
-void CardRepository::doDeposit(const std::string&, atm::money::Money) {
+void CardRepository::doDeposit(const std::string&, int amount) {
     return;
 }
 
-void CardRepository::doWithdraw(const std::string&, atm::money::Money) {
-    return;
-}
-
-void CardRepository::doTransfer(const std::string&, atm::money::Money) {
+void CardRepository::doWithdraw(const std::string&, int amount) {
     return;
 }
 

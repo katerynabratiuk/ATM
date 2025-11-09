@@ -9,8 +9,9 @@ public:
     TransactionService(ITransactionRepository& txRepository);
 
 private:
-    ITransactionRepository& _txRepository;
+    ITransactionRepository& _repo;
 
-    std::vector<Transaction> listByCard(const std::string& cardNumber, int limit, int offset) override;
-    Transaction getLast(const std::string& cardNumber) override;
+    std::vector<Transaction> doListByCard(const std::string& cardNumber, 
+        int limit, int offset) override;
+    Transaction doGetLast(const std::string& cardNumber) override;
 };

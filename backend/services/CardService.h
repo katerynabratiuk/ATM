@@ -1,20 +1,20 @@
-#pragma once // Замість #include "backend/services/ICardService.h"
+#pragma once
 
 #include "backend/services/ICardService.h"
-#include "backend/repositories/ICardRepository.h"
 #include "backend/repositories/ITransactionRepository.h"
+#include "backend/repositories/ICardRepository.h"
 #include "backend/services/IBanknoteService.h"
+
 class CardService : public ICardService
 {
 public:
-    CardService(ICardRepository& cardRepository,
-        ITransactionRepository& txRepository,
-        IBanknoteService& banknoteService);
+    CardService(ICardRepository& cardRepository, IBanknoteService& banknoteService,
+        ITransactionRepository& txRepo);
 
 private:
-    ICardRepository& _cardRepository;
-    ITransactionRepository& _txRepository;
+    ICardRepository& _repo;
     IBanknoteService& _banknoteService;
+	ITransactionRepository& _txRepo;
 
     void doAuth(const std::string& cardNum, const std::string& pin) override;
     void doDeposit(const std::string& cardNum, int amount) override;

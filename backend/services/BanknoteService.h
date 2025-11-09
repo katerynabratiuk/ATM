@@ -1,18 +1,15 @@
 #pragma once
 
 #include "backend/services/IBanknoteService.h"
-// #include "backend/repositories/IBanknoteRepository.h" // Потрібен буде репозиторій
+#include "backend/repositories/IBanknoteRepository.h"
 
 class BanknoteService : public IBanknoteService
 {
 public:
-    // BanknoteService(IBanknoteRepository& repo);
-
-    bool canDispense(int amount) override;
-    void dispense(int amount) override;
+    BanknoteService(IBanknoteRepository& repo);
 
 private:
-    // IBanknoteRepository& _repo;
+    IBanknoteRepository& _repo;
 
-    // TODO: логіка підрахунку купюр
+    void doDispense(int amount) override;
 };

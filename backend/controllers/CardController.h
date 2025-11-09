@@ -12,17 +12,19 @@ struct Session
 
 class CardController : public ICardController
 {
+public:
+	CardController(ICardService& service);
+	~CardController();
+
+private:
 	void doSetCard(const std::string& cardNum) override;
-	virtual void doAuth(const std::string& pin) override;
+	void doAuth(const std::string& pin) override;
 	void doDeauth() override;
 	void doDeposit(int amount) override;
 	void doWithdraw(int amount) override;
 	void doTransfer(const std::string& targetCardNum, int amount) override;
 	void doChangePin(const std::string& newPin) override;
 	Card doGetCard() override;
-public:
-	CardController(ICardService& service);
-	~CardController();
 
 	int _attempts;
 	Session* _session;

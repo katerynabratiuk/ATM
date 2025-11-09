@@ -1,7 +1,8 @@
 #pragma once
 
-struct Banknote {
-	int atm_id;
-	int denominator;
-	int count;
+struct Banknote 
+{
+	int _atm_id;
+	int _denominator;
+	int _count;
 };

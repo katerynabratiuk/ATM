@@ -16,11 +16,11 @@ enum class TransactionStatus {
 
 struct Transaction
 {
-	long id;
-	std::string fromCardNumber;
-	std::string toCardNumber;
-	std::chrono::time_point<std::chrono::system_clock> time;
-	TransactionType transactionType;
-	atm::money::Money amount;
-	TransactionStatus transactionStatus;
+	long _id;
+	std::string _from;
+	std::string _to;
+	std::chrono::time_point<std::chrono::system_clock> _time;
+	TransactionType _type;
+	atm::money::Money _amount;
+	TransactionStatus _status;
 };
