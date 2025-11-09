@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "backend/utils/decimal.h"
+#include "backend/core/Money.h"
 
 struct Card
 {
@@ -8,6 +8,6 @@ struct Card
 	std::string _firstName;
 	std::string _lastName;
 	std::string _pin;
-	dec::decimal<2> _balance;
-	dec::decimal<2> _creditLimit;
+	atm::money::Money _balance;
+	atm::money::Money _creditLimit;
 };

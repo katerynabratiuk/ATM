@@ -2,7 +2,7 @@
 #include "ICardRepository.h"
 #include "backend/models/Card.h"
 #include "IDBConnection.h"
-#include "backend/utils/decimal.h"
+#include "backend/core/Money.h"
 #include <pqxx/pqxx>
 
 class CardRepository : public ICardRepository {
@@ -15,9 +15,9 @@ private:
     IDBConnection<pqxx::connection>& _connection;
 
     void doAuth(const std::string& cardNumber, const std::string& pinCode) override;
-    void doDeposit(const std::string& cardNumber, dec::decimal<2> amount) override;
-    void doWithdraw(const std::string& cardNumber, dec::decimal<2> amount) override;
-    void doTransfer(const std::string& targetCardNumber, dec::decimal<2> amount) override;
+    void doDeposit(const std::string& cardNumber, atm::money::Money amount) override;
+    void doWithdraw(const std::string& cardNumber, atm::money::Money amount) override;
+    void doTransfer(const std::string& targetCardNumber, atm::money::Money amount) override;
     void doChangePin(const std::string& cardNumber, const std::string& newPin) override;
     Card doGetCard(const std::string& cardNumber) override;
 };
