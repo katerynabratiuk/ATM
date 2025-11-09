@@ -2,6 +2,7 @@
 #include <string>
 #include "backend/controllers/ICardController.h"
 #include "backend/services/ICardService.h"
+#include "backend/models/Card.h"
 
 struct Session
 {
