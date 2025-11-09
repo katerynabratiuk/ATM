@@ -34,7 +34,6 @@ void ATMInterface::setVisuals()
 	setFixedSize(QSize(762, 700));
 
 	QApplication::setStyle(QStyleFactory::create("windows"));
-	//QApplication::setStyle(QStyleFactory::create("fusion"));
 
 	_ui.btnCancel->setStyleSheet("QPushButton { background-color : red; }");
 	_ui.btnClear->setStyleSheet("QPushButton { background-color : #ffbf00; }");
@@ -50,8 +49,8 @@ void ATMInterface::addPages()
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::DepositPage), &_depositPage);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::TransferPage), &_transferPage);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::ChangePinPage), &_changePinPage);
-	_ui.widgetStack->insertWidget(static_cast<int>(Pages::SuccessPage), &_successPage);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::BalancePage), &_balancePage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::SuccessPage), &_successPage);
 }
 
 void ATMInterface::connectSlots()

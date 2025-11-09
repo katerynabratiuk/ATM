@@ -4,6 +4,9 @@ BalanceWidget::BalanceWidget(QWidget *parent)
 	: QWidget(parent)
 {
 	_ui.setupUi(this);
+
+	_ui.label->setText("  KishkaBabusi");
+	_ui.label->setStyleSheet("QLabel { background-color : purple; color : white; }");
 }
 
 BalanceWidget::~BalanceWidget()

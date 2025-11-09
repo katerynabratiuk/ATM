@@ -4,6 +4,9 @@ EnterPinWidget::EnterPinWidget(QWidget * parent) : QWidget(parent)
 {
 	_ui.setupUi(this);
 
+	_ui.label->setText("  KishkaBabusi");
+	_ui.label->setStyleSheet("QLabel { background-color : purple; color : white; }");
+
 	_ui.pinForm->setReadOnly(true);
 	_ui.pinForm->setMaxLength(4);
 	_ui.errorInfo->setStyleSheet("color: red;");

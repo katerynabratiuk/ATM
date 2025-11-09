@@ -4,6 +4,9 @@ WithdrawWidget::WithdrawWidget(QWidget *parent) : QWidget(parent)
 {
 	_ui.setupUi(this);
 
+	_ui.label->setText("  KishkaBabusi");
+	_ui.label->setStyleSheet("QLabel { background-color : purple; color : white; }");
+
 	_ui.amountForm->setReadOnly(true);
 	_ui.errorInfo->setStyleSheet("color: red;");
 
@@ -38,7 +41,7 @@ void WithdrawWidget::withdraw()
 {
 	if (_ui.amountForm->text().isEmpty())
 	{
-		_ui.errorInfo->setText("Please enter an amount to deposit.");
+		_ui.errorInfo->setText("Please enter an amount to withdraw.");
 		return;
 	}
 
