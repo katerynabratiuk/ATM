@@ -1,7 +1,7 @@
 #pragma once
-
+#include "backend/utils/decimal.h"
 #include <string>
-#include "Card.h"
+#include "backend/models/Card.h"
 
 class ICardRepository
 {
