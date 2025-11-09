@@ -17,7 +17,7 @@ class CardController : public ICardController
 	void doDeauth() override;
 	void doDeposit(int amount) override;
 	void doWithdraw(int amount) override;
-	void doTransfer(const std::string& targetCardNum, atm::money::Money amount) override;
+	void doTransfer(const std::string& targetCardNum, int amount) override;
 	void doChangePin(const std::string& newPin) override;
 	Card doGetCard() override;
 public:
