@@ -5,6 +5,7 @@ ATMInterface::ATMInterface(QWidget* parent)
 {
 	_ui.setupUi(this);
 
+	setVisuals();
 	addPages();
 	connectSlots();
 
@@ -20,27 +21,49 @@ void ATMInterface::changeCurrentPage(Pages page)
 	{
 		/*_cardController.Deauth();*/
 	}
+	else if (page == Pages::BalancePage)
+	{
+		_balancePage.show();
+	}
 	_ui.widgetStack->setCurrentIndex(static_cast<int>(page));
+}
+
+void ATMInterface::setVisuals()
+{
+	// setFixedSize(QSize(762, 788));
+	setFixedSize(QSize(762, 700));
+
+	QApplication::setStyle(QStyleFactory::create("windows"));
+
+	_ui.btnCancel->setStyleSheet("QPushButton { background-color : red; }");
+	_ui.btnClear->setStyleSheet("QPushButton { background-color : #ffbf00; }");
+	_ui.btnEnter->setStyleSheet("QPushButton { background-color : green; }");
 }
 
 void ATMInterface::addPages()
 {
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::EnterCardPage), &_cardPage);
-	_ui.widgetStack->insertWidget(static_cast<int>(Pages::EnterPinPage), &_pinPage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::EnterPinPage), &_enterPinPage);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::MainMenuPage), &_mainMenuPage);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::WithdrawPage), &_withdrawPage);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::DepositPage), &_depositPage);
 	_ui.widgetStack->insertWidget(static_cast<int>(Pages::TransferPage), &_transferPage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::ChangePinPage), &_changePinPage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::BalancePage), &_balancePage);
+	_ui.widgetStack->insertWidget(static_cast<int>(Pages::SuccessPage), &_successPage);
 }
 
 void ATMInterface::connectSlots()
 {
 	connect(&_cardPage, &EnterCardWidget::changePage, this, &ATMInterface::changeCurrentPage);
-	connect(&_pinPage, &EnterPinWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(&_enterPinPage, &EnterPinWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(&_mainMenuPage, &MainMenuWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(&_withdrawPage, &WithdrawWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(&_transferPage, &TransferWidget::changePage, this, &ATMInterface::changeCurrentPage);
 	connect(&_depositPage, &DepositWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(&_changePinPage, &ChangePinWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(&_successPage, &SuccessWidget::changePage, this, &ATMInterface::changeCurrentPage);
+	connect(&_balancePage, &BalanceWidget::changePage, this, &ATMInterface::changeCurrentPage);
 
 	connect(this, &ATMInterface::digitPressed, this, &ATMInterface::forwardDigit);
 	connect(this, &ATMInterface::enterPressed, this, &ATMInterface::forwardEnter);

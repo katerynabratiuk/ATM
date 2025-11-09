@@ -10,5 +10,6 @@ enum class Pages
 	TransferPage,
 	ChangePinPage,
 	HistoryPage,
+	BalancePage,
 	SuccessPage
 };
