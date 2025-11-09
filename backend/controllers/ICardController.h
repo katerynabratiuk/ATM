@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "backend/Models.h"
+#include "backend/models/Card.h"
 
 class ICardController
 {
