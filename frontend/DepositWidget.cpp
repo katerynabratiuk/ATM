@@ -5,6 +5,9 @@ DepositWidget::DepositWidget(QWidget *parent)
 {
 	_ui.setupUi(this);
 
+	_ui.label->setText("  KishkaBabusi");
+	_ui.label->setStyleSheet("QLabel { background-color : purple; color : white; }");
+
 	_ui.amountForm->setReadOnly(true);
 	_ui.errorInfo->setStyleSheet("color: red;");
 

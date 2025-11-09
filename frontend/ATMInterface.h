@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QStyleFactory>
 #include "ui_ATMSimulator.h"
 
 #include "frontend/EnterCardWidget.h"
@@ -9,6 +10,9 @@
 #include "frontend/WithdrawWidget.h"
 #include "frontend/TransferWidget.h"
 #include "frontend/DepositWidget.h"
+#include "frontend/ChangePinWidget.h"
+#include "frontend/SuccessWidget.h"
+#include "frontend/BalanceWidget.h"
 #include "backend/controllers/ICardController.h"
 #include "backend/Enums.h"
 #include "frontend/IPage.h"
@@ -65,12 +69,16 @@ private:
     // ICardController& _cardController;
 
     EnterCardWidget _cardPage;
-    EnterPinWidget _pinPage;
+    EnterPinWidget _enterPinPage;
 	MainMenuWidget _mainMenuPage;
     WithdrawWidget _withdrawPage;
 	DepositWidget _depositPage;
 	TransferWidget _transferPage;
+    ChangePinWidget _changePinPage;
+	SuccessWidget _successPage;
+    BalanceWidget _balancePage;
 
+	void setVisuals();
     void addPages();
     void connectSlots();
 };

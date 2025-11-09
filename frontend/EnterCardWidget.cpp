@@ -5,6 +5,9 @@ EnterCardWidget::EnterCardWidget(QWidget* parent) : QWidget(parent)
 {
 	_ui.setupUi(this);
 
+	_ui.label->setText("  KishkaBabusi");
+	_ui.label->setStyleSheet("QLabel { background-color : purple; color : white; }");
+
 	_ui.cardForm->setReadOnly(true);
 	_ui.cardForm->setMaxLength(13);
 	_ui.errorInfo->setStyleSheet("color: red;");

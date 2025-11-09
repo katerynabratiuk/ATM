@@ -6,6 +6,10 @@
 class ICardRepository
 {
 public:
+	void authenticate(const std::string& cardNumber, const std::string& pin)
+	{
+		doAuth(cardNumber, pin);
+	}
 
 	void deposit(const std::string& cardNumber, atm::money::Money amount)
 	{
