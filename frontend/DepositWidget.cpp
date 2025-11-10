@@ -46,6 +46,12 @@ void DepositWidget::deposit()
 		return;
 	}
 
+	if (_ui.amountForm->text().toInt() % 10 != 0)
+	{
+		_ui.errorInfo->setText("Please enter legit banknotes.");
+		return;
+	}
+
 	try
 	{
 		//_cardController->deposit(_ui.amountForm->text().toInt());

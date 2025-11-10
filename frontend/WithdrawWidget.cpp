@@ -45,6 +45,12 @@ void WithdrawWidget::withdraw()
 		return;
 	}
 
+	if (_ui.amountForm->text().toInt() % 10 != 0)
+	{
+		_ui.errorInfo->setText("No available banknotes for this amount.");
+		return;
+	}
+
 	try
 	{
 		//_cardController->withdraw(_ui.amountForm->text().toInt());
