@@ -7,7 +7,7 @@
 #include <pqxx/params.hxx>
 
 
-void CardRepository::doDeposit(const std::string& cardNumber, atm::money::Money amount) {
+void CardRepository::doDeposit(const std::string& cardNumber, int amount) {
     auto& conn = _connection.getConnection();
 
     pqxx::work txn{ conn };
@@ -17,12 +17,12 @@ void CardRepository::doDeposit(const std::string& cardNumber, atm::money::Money 
         "SET balance = balance + $2 "
         "WHERE card_number = $1;";
 
-    txn.exec_params(query, cardNumber, atm::money::to_string(amount));
+    txn.exec_params(query, cardNumber, amount);
     txn.commit();
     return;
 }
 
-void CardRepository::doWithdraw(const std::string& cardNumber, atm::money::Money amount) {
+void CardRepository::doWithdraw(const std::string& cardNumber, int amount) {
     auto& conn = _connection.getConnection();
 
     pqxx::work txn{ conn };
@@ -32,20 +32,11 @@ void CardRepository::doWithdraw(const std::string& cardNumber, atm::money::Money
         "SET balance = balance - $2 "
         "WHERE card_number = $1;";
 
-    txn.exec_params(query, cardNumber, atm::money::to_string(amount));
+    txn.exec_params(query, cardNumber, amount);
     txn.commit();
     return;
 }
 
-void CardRepository::doTransfer(
-    const std::string& initiatorCardNumber,
-    const std::string& targetCardNumber,
-    atm::money::Money amount
-) {
-    doWithdraw(initiatorCardNumber, amount);
-    doDeposit(targetCardNumber, amount);
-    return;
-}
 
 void CardRepository::doChangePin(const std::string& cardNumber, const std::string& pin) {
     auto& conn = _connection.getConnection();
