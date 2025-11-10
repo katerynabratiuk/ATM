@@ -7,12 +7,10 @@ void BanknoteService::doDispense(int amount)
 {
 	try
 	{
-		std::unordered_map<Denominations, int> counts = _repo.getAllCounts();
+		std::vector<std::pair<Denominations, int>> counts = _repo.getAllCounts();
 	}
 	catch (const std::exception& e)
 	{
 		throw;
 	}
-
-
 }
