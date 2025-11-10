@@ -103,6 +103,7 @@ void TransferWidget::transfer()
 void TransferWidget::clean()
 {
 	_top = true;
+	_ui.btnUp->setChecked(true);
 	_ui.cardForm->clear();
 	_ui.amountForm->clear();
 	_ui.errorInfo->clear();

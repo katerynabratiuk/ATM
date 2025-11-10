@@ -14,11 +14,9 @@ public:
 private:
     IDBConnection<pqxx::connection>& _connection;
 
-    void doDeposit(const std::string& cardNumber, atm::money::Money amount) override;
-    void doWithdraw(const std::string& cardNumber, atm::money::Money amount) override;
-    void doTransfer(const std::string& initiatorCardNumber,
-        const std::string& targetCardNumber,
-        atm::money::Money amount) override;
+    void doAuth(const std::string& cardNumber, const std::string& pinCode) override;
+    void doDeposit(const std::string& cardNumber, int amount) override;
+    void doWithdraw(const std::string& cardNumber, int amount) override;
     void doChangePin(const std::string& cardNumber, const std::string& newPin) override;
     Card doGetCard(const std::string& cardNumber) override;
 };

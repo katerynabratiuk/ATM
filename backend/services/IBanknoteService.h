@@ -5,6 +5,10 @@ class IBanknoteService
 public:
     virtual ~IBanknoteService() = default;
 
-    virtual bool canDispense(int amount) = 0;
-    virtual void dispense(int amount) = 0;
+    void dispense(int amount)
+    {
+		doDispense(amount);
+    }
+private:
+	virtual void doDispense(int amount) = 0;
 };

@@ -1,17 +1,18 @@
 #pragma once
 
+#include "backend/controllers/ITransactionController.h"
 #include "backend/services/ITransactionService.h"
 #include "backend/models/Transaction.h"
 #include <vector>
 #include <string>
 
-class TransactionController
+class TransactionController : public ITransactionController
 {
 public:
     TransactionController(ITransactionService& service);
-
-    std::vector<Transaction> getHistory(const std::string& cardNumber, int limit, int offset);
-
 private:
     ITransactionService& _service;
+
+    std::vector<Transaction> doGetHistory(const std::string& cardNumber,
+        int limit, int offset) override;
 };

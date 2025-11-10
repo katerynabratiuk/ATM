@@ -1,30 +1,31 @@
 #include "backend/services/TransactionService.h"
 #include <stdexcept>
 
-TransactionService::TransactionService(ITransactionRepository& txRepository)
-    : _txRepository(txRepository)
+TransactionService::TransactionService(ITransactionRepository& repo)
+    : _repo(repo)
+{}
+
+std::vector<Transaction> TransactionService::doListByCard(const std::string& cardNumber, 
+    int limit, int offset)
 {
+    try
+    {
+        return _repo.listByCard(cardNumber, limit, offset);
+    }
+    catch (const std::exception& e)
+    {
+        throw;
+	}
 }
 
-std::vector<Transaction> TransactionService::listByCard(const std::string& cardNumber, int limit, int offset)
+Transaction TransactionService::doGetLast(const std::string& cardNumber)
 {
-    if (limit <= 0 || limit > 50)
+    try
     {
-        limit = 10;
+        return _repo.getLast(cardNumber);
     }
-    if (offset < 0)
+    catch (const std::exception& e)
     {
-        offset = 0;
+        throw;
     }
-
-    return _txRepository.listByCard(cardNumber, limit, offset);
-}
-
-Transaction TransactionService::getLast(const std::string& cardNumber)
-{
-    if (cardNumber.empty())
-    {
-        throw std::invalid_argument("Card number cannot be empty.");
-    }
-    return _txRepository.getLast(cardNumber);
 }

@@ -33,12 +33,12 @@ void CardController::doSetCard(const std::string& cardNum)
 	try
 	{
 		_service.getCard(cardNum);
+		_session = new Session{ cardNum };
 	}
 	catch (const std::exception& e)
 	{
 		throw;
 	}
-	_session = new Session{ cardNum };
 }
 
 void CardController::doDeauth()

@@ -92,6 +92,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="backend\controllers\TransactionController.cpp" />
+    <ClCompile Include="backend\repositories\CardRepository.cpp" />
+    <ClCompile Include="backend\services\BanknoteService.cpp" />
+    <ClCompile Include="backend\services\CardService.cpp" />
+    <ClCompile Include="backend\services\TransactionService.cpp" />
     <ClCompile Include="frontend\BalanceWidget.cpp" />
     <ClCompile Include="frontend\ChangePinWidget.cpp" />
     <ClCompile Include="frontend\DepositWidget.cpp" />
@@ -109,15 +114,33 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="backend\controllers\CardController.h" />
+    <ClInclude Include="backend\Denominations.h" />
+    <ClInclude Include="backend\repositories\IBanknoteRepository.h" />
+    <ClInclude Include="backend\controllers\ITransactionController.h" />
+    <ClInclude Include="backend\controllers\TransactionController.h" />
+    <ClInclude Include="backend\core\Money.h" />
     <ClInclude Include="backend\Enums.h" />
     <ClInclude Include="backend\controllers\ICardController.h" />
+    <ClInclude Include="backend\external\decimal.h" />
+    <ClInclude Include="backend\models\Banknote.h" />
+    <ClInclude Include="backend\models\Card.h" />
+    <ClInclude Include="backend\models\Transaction.h" />
+    <ClInclude Include="backend\repositories\CardRepository.h" />
+    <ClInclude Include="backend\repositories\ICardRepository.h" />
+    <ClInclude Include="backend\repositories\IDBConnection.h" />
+    <ClInclude Include="backend\repositories\ITransactionRepository.h" />
+    <ClInclude Include="backend\repositories\PostgresDBConnection.h" />
+    <ClInclude Include="backend\services\BanknoteService.h" />
+    <ClInclude Include="backend\services\CardService.h" />
+    <ClInclude Include="backend\services\IBanknoteService.h" />
     <ClInclude Include="backend\services\ICardService.h" />
-    <ClInclude Include="backend\Models.h" />
     <QtMoc Include="frontend\SuccessWidget.h" />
     <QtMoc Include="frontend\TransferWidget.h" />
     <QtMoc Include="frontend\DepositWidget.h" />
     <QtMoc Include="frontend\ChangePinWidget.h" />
     <QtMoc Include="frontend\BalanceWidget.h" />
+    <ClInclude Include="backend\services\ITransactionService.h" />
+    <ClInclude Include="backend\services\TransactionService.h" />
     <ClInclude Include="frontend\IPage.h" />
     <QtMoc Include="frontend\WithdrawWidget.h" />
     <QtMoc Include="frontend\MainMenuWidget.h" />
