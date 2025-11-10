@@ -13,6 +13,7 @@
 #include "frontend/ChangePinWidget.h"
 #include "frontend/SuccessWidget.h"
 #include "frontend/BalanceWidget.h"
+#include "frontend/HistoryWidget.h"
 #include "backend/controllers/ICardController.h"
 #include "backend/Enums.h"
 #include "frontend/IPage.h"
@@ -77,6 +78,7 @@ private:
     ChangePinWidget _changePinPage;
 	SuccessWidget _successPage;
     BalanceWidget _balancePage;
+	HistoryWidget _historyPage;
 
 	void setVisuals();
     void addPages();

@@ -110,7 +110,7 @@
     <ClCompile Include="frontend\EnterPinWidget.cpp" />
     <ClCompile Include="frontend\EnterCardWidget.cpp" />
     <ClCompile Include="frontend\ATMInterface.cpp" />
-    <ClCompile Include="CardRepository.cpp" />
+    <ClCompile Include="frontend\HistoryWidget.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +136,7 @@
     <ClInclude Include="backend\services\CardService.h" />
     <ClInclude Include="backend\services\IBanknoteService.h" />
     <ClInclude Include="backend\services\ICardService.h" />
+    <QtMoc Include="frontend\HistoryWidget.h" />
     <QtMoc Include="frontend\SuccessWidget.h" />
     <QtMoc Include="frontend\TransferWidget.h" />
     <QtMoc Include="frontend\DepositWidget.h" />
@@ -161,6 +162,7 @@
     <QtUic Include="frontend\WithdrawWidget.ui" />
     <QtUic Include="frontend\TransferWidget.ui" />
     <QtUic Include="frontend\SuccessWidget.ui" />
+    <QtUic Include="frontend\HistoryWidget.ui" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
