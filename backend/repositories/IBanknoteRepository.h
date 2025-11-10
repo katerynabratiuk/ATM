@@ -5,22 +5,19 @@
 class IBanknoteRepository
 {
 public:
-	virtual ~IBanknoteRepository() = default;
+    virtual ~IBanknoteRepository() = default;
 
-	int getCount(Denominations denom)
-	{
-		return doGetCount(denom);
-	}
+  int getCount(Denominations denom) { return doGetCount(denom); }
+  void setCount(Denominations denom, int count) { doSetCount(denom, count); }
+  std::vector<std::pair<Denominations, int>> getAllCounts() { return doGetAllCounts(); }
 
-	void setCount(Denominations denom, int count)
-	{
-		return doSetCount(denom, count);
-	}
+protected:
+    explicit IBanknoteRepository(long atmId)
+        : _atmId(atmId) {
+    }
 
-	std::vector<std::pair<Denominations, int>> getAllCounts()
-	{
-		return doGetAllCounts();
-	}
+    const long _atmId;
+
 private:
 	virtual int doGetCount(Denominations denom) = 0;
 	virtual void doSetCount(Denominations denom, int count) = 0;
