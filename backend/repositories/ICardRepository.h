@@ -5,10 +5,6 @@
 class ICardRepository
 {
 public:
-	void authenticate(const std::string& cardNumber, const std::string& pin)
-	{
-		doAuth(cardNumber, pin);
-	}
 
 	void deposit(const std::string& cardNumber, int amount)
 	{
@@ -31,7 +27,6 @@ public:
 	}
 	~ICardRepository() = default;
 private:
-	virtual void doAuth(const std::string& cardNumber, const std::string& pin) = 0;
 	virtual void doDeposit(const std::string& cardNumber, int amount) = 0;
 	virtual void doWithdraw(const std::string& cardNumber, int amount) = 0;
 	virtual void doChangePin(const std::string& cardNumber, const std::string& newPin) = 0;
