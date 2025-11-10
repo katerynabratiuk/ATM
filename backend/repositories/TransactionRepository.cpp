@@ -11,7 +11,7 @@ static Transaction extractTransaction(const pqxx::row& row)
     t._transactionType = from_string_type(row["type"].as<std::string>());
     t._transactionStatus = from_string_status(row["status"].as<std::string>());
     t._time = row["created_at"].as<std::string>();
-    t._amount = atm::money::Money(row["amount"].as<double>());
+    t._amount = row["amount"].as<int>();
     return t;
 }
 
@@ -28,7 +28,7 @@ void TransactionRepository::doCreateTransaction(Transaction transaction) {
         transaction._fromCardNumber,
         transaction._toCardNumber,
         to_string(transaction._transactionType),
-        atm::money::to_string(transaction._amount),
+        transaction._amount,
         to_string(transaction._transactionStatus)
     );
 

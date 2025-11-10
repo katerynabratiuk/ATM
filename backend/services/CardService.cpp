@@ -1,6 +1,7 @@
 #include "backend/services/CardService.h"
 #include "backend/Exceptions.h"
 #include "backend/models/Card.h"
+#include "backend/external/libbcrypt/include/bcrypt/BCrypt.hpp"
 
 CardService::CardService(ICardRepository& cardRepository, IBanknoteService& banknoteService,
     ITransactionRepository& txRepo)
@@ -10,7 +11,8 @@ CardService::CardService(ICardRepository& cardRepository, IBanknoteService& bank
 void CardService::doAuth(const std::string& cardNum, const std::string& pin)
 {
     Card card = _repo.getCard(cardNum);
-    if (pin != card._pin)
+
+    if (!BCrypt::validatePassword(pin, card._pin))
     {
         throw Exceptions::AccessDenied;
     }
@@ -21,11 +23,13 @@ void CardService::doDeposit(const std::string& cardNum, int amount)
     try
     {
         _repo.deposit(cardNum, amount);
-        //_txRepo.addTransaction(cardNum, "", amount, TransactionType::DEPOSIT, TransactionStatus::SUCCESSFUL);
+        _txRepo.addTransaction(Transaction(cardNum, cardNum, 
+            TransactionType::DEPOSIT, amount, TransactionStatus::SUCCESSFUL));
     }
     catch (Exceptions e)
     {
-        //_txRepo.addTransaction(cardNum, "", amount, TransactionType::DEPOSIT, TransactionStatus::FAILED);
+        _txRepo.addTransaction(Transaction(cardNum, cardNum,
+            TransactionType::DEPOSIT, amount, TransactionStatus::FAILED));
         throw e;
 	}
 }
@@ -42,11 +46,13 @@ void CardService::doWithdraw(const std::string& cardNum, int amount)
 
         _banknoteService.dispense(amount);
         _repo.withdraw(cardNum, amount);
-        //_txRepo.addTransaction(cardNum, "", amount, TransactionType::WITHDRAWAL, TransactionStatus::SUCCESSFUL);
+        _txRepo.addTransaction(Transaction(cardNum, cardNum,
+            TransactionType::WITHDRAWAL, amount, TransactionStatus::SUCCESSFUL));
     }
     catch (Exceptions e)
     {
-        //_txRepo.addTransaction(cardNum, "", amount, TransactionType::WITHDRAWAL, TransactionStatus::FAILED);
+        _txRepo.addTransaction(Transaction(cardNum, cardNum,
+            TransactionType::WITHDRAWAL, amount, TransactionStatus::FAILED));
         throw e;
     }
 }
@@ -67,11 +73,13 @@ void CardService::doTransfer(const std::string& from, const std::string& to, int
 
         _repo.withdraw(from, amount);
 		_repo.deposit(to, amount);
-        //_txRepo.addTransaction(from, to, amount, TransactionType::TRANSFER, TransactionStatus::SUCCESSFUL);
+        _txRepo.addTransaction(Transaction(from, to,
+            TransactionType::WITHDRAWAL, amount, TransactionStatus::SUCCESSFUL));
     }
     catch (Exceptions e)
     {
-        //_txRepo.addTransaction(from, to, amount, TransactionType::TRANSFER, TransactionStatus::FAILED);
+        _txRepo.addTransaction(Transaction(from, to,
+            TransactionType::WITHDRAWAL, amount, TransactionStatus::FAILED));
         throw e;
     }
 }

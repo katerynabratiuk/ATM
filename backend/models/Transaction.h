@@ -21,10 +21,27 @@ struct Transaction
 	std::string _toCardNumber;
 	std::string _time;
 	TransactionType _transactionType;
-	atm::money::Money _amount;
+	int _amount;
 	TransactionStatus _transactionStatus;
+
+    Transaction(std::string _fromCardNumber,
+        std::string _toCardNumber,
+        TransactionType _transactionType,
+        int _amount,
+        TransactionStatus _transactionStatus
+    );
+    Transaction() {};
 };
 
+inline Transaction::Transaction(std::string fromCardNumber,
+    std::string toCardNumber,
+    TransactionType transactionType,
+    int amount,
+    TransactionStatus transactionStatus
+) : _fromCardNumber(fromCardNumber), _toCardNumber(toCardNumber),
+    _transactionType(transactionType), _amount(amount),
+    _transactionStatus(transactionStatus)
+{};
 
 static std::string to_string(TransactionType t) {
     switch (t) {
