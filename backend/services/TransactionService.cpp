@@ -10,7 +10,7 @@ std::vector<Transaction> TransactionService::doListByCard(const std::string& car
 {
     try
     {
-        return _repo.listByCard(cardNumber, limit, offset);
+        return _repo.listTransactions(cardNumber);
     }
     catch (const std::exception& e)
     {
@@ -22,7 +22,7 @@ Transaction TransactionService::doGetLast(const std::string& cardNumber)
 {
     try
     {
-        return _repo.getLast(cardNumber);
+        return _repo.getLastTransaction(cardNumber);
     }
     catch (const std::exception& e)
     {
