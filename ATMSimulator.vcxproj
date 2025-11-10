@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClCompile Include="backend\controllers\TransactionController.cpp" />
     <ClCompile Include="backend\repositories\CardRepository.cpp" />
+    <ClCompile Include="backend\repositories\TransactionRepository.cpp" />
     <ClCompile Include="backend\services\BanknoteService.cpp" />
     <ClCompile Include="backend\services\CardService.cpp" />
     <ClCompile Include="backend\services\TransactionService.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="backend\repositories\IDBConnection.h" />
     <ClInclude Include="backend\repositories\ITransactionRepository.h" />
     <ClInclude Include="backend\repositories\PostgresDBConnection.h" />
+    <ClInclude Include="backend\repositories\TransactionRepository.h" />
     <ClInclude Include="backend\services\BanknoteService.h" />
     <ClInclude Include="backend\services\CardService.h" />
     <ClInclude Include="backend\services\IBanknoteService.h" />
@@ -159,6 +161,9 @@
     <QtUic Include="frontend\WithdrawWidget.ui" />
     <QtUic Include="frontend\TransferWidget.ui" />
     <QtUic Include="frontend\SuccessWidget.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
