@@ -7,7 +7,7 @@ class IBanknoteRepository
 public:
 	virtual ~IBanknoteRepository() = default;
 
-	void getCount(Denominations denom)
+	int getCount(Denominations denom)
 	{
 		return doGetCount(denom);
 	}
@@ -22,7 +22,7 @@ public:
 		return doGetAllCounts();
 	}
 private:
-	virtual void doGetCount(Denominations denom) = 0;
+	virtual int doGetCount(Denominations denom) = 0;
 	virtual void doSetCount(Denominations denom, int count) = 0;
 	virtual std::vector<std::pair<Denominations, int>> doGetAllCounts() = 0;
 };
