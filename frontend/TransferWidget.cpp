@@ -1,4 +1,5 @@
 #include "TransferWidget.h"
+#include "backend/Exceptions.h"
 
 TransferWidget::TransferWidget(QWidget* parent)
 	: QWidget(parent), _top(true)
@@ -94,9 +95,20 @@ void TransferWidget::transfer()
 
 		emit changePage(Pages::SuccessPage);
 	}
-	catch (const std::exception& e)
+	catch (Exceptions e)
 	{
-		_ui.errorInfo->setText("error!!!");
+		if (e == Exceptions::NotEnoughMoney)
+		{
+			_ui.errorInfo->setText("Not enough money.");
+		}
+		else if (e == Exceptions::SameCard)
+		{
+			_ui.errorInfo->setText("Cannot transfer to oneself");
+		}
+		else
+		{
+			_ui.errorInfo->setText("An unexpected error occurred. Please try again.");
+		}
 	}
 }
 

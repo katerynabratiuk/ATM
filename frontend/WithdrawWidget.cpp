@@ -1,4 +1,5 @@
 #include "WithdrawWidget.h"
+#include "backend/Exceptions.h"
 
 WithdrawWidget::WithdrawWidget(QWidget *parent) : QWidget(parent)
 {
@@ -59,9 +60,20 @@ void WithdrawWidget::withdraw()
 
 		emit changePage(Pages::SuccessPage);
 	}
-	catch (const std::exception& e)
+	catch (Exceptions e)
 	{
-		_ui.errorInfo->setText("error!!!");
+		if (e == Exceptions::NotEnoughMoney)
+		{
+			_ui.errorInfo->setText("Not enough money.");
+		}
+		else if (e == Exceptions::NoSuchCash)
+		{
+			_ui.errorInfo->setText("No available banknotes for this amount.");
+		}
+		else
+		{
+			_ui.errorInfo->setText("An unexpected error occurred. Please try again.");
+		}
 	}
 }
 

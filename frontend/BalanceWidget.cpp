@@ -1,4 +1,5 @@
 #include "BalanceWidget.h"
+#include "backend/Exceptions.h"
 
 BalanceWidget::BalanceWidget(QWidget *parent)
 	: QWidget(parent)
@@ -38,7 +39,7 @@ void BalanceWidget::show()
 			_ui.clValue->setText("not a credit card");
 		}
 	}
-	catch (const std::exception& e)
+	catch (Exceptions e)
 	{
 		_ui.bValue->setText("error");
 		_ui.clValue->setText("error");

@@ -1,4 +1,5 @@
 #include "backend/controllers/CardController.h"
+#include "backend/Exceptions.h"
 
 CardController::CardController(ICardService& service) : _session(nullptr), _service(service), _attempts(0)
 {}
@@ -15,30 +16,21 @@ void CardController::doAuth(const std::string& pin)
 		if (_attempts >= 3)
 		{
 			doDeauth();
-
-			// tooManyAttemptsException
-			throw;
+			throw Exceptions::TooManyAttempts;
 		}
 		_service.authenticate(_session->_cardNum, pin);
 	}
-	catch (const std::exception& e)
+	catch (Exceptions e)
 	{
 		_attempts++;
-		throw;
+		throw e;
 	}
 }
 
 void CardController::doSetCard(const std::string& cardNum)
 {
-	try
-	{
-		_service.getCard(cardNum);
-		_session = new Session{ cardNum };
-	}
-	catch (const std::exception& e)
-	{
-		throw;
-	}
+	_service.getCard(cardNum);
+	_session = new Session{ cardNum };
 }
 
 void CardController::doDeauth()
@@ -50,60 +42,25 @@ void CardController::doDeauth()
 
 void CardController::doDeposit(int amount)
 {
-	try
-	{
-		_service.deposit(_session->_cardNum, amount);
-	}
-	catch (const std::exception& e)
-	{
-		throw;
-	}
+	_service.deposit(_session->_cardNum, amount);
 }
 
 void CardController::doWithdraw(int amount)
 {
-	try
-	{
-		_service.withdraw(_session->_cardNum, amount);
-	}
-	catch (const std::exception& e)
-	{
-		throw;
-	}
+	_service.withdraw(_session->_cardNum, amount);
 }
 
 void CardController::doTransfer(const std::string& targetCardNum, int amount)
 {
-	try
-	{
-		_service.transfer(_session->_cardNum, targetCardNum, amount);
-	}
-	catch (const std::exception& e)
-	{
-		throw;
-	}
+	_service.transfer(_session->_cardNum, targetCardNum, amount);
 }
 
 void CardController::doChangePin(const std::string& newPin)
 {
-	try
-	{
-		_service.changePin(_session->_cardNum, newPin);
-	}
-	catch (const std::exception& e)
-	{
-		throw;
-	}
+	_service.changePin(_session->_cardNum, newPin);
 }
 
 Card CardController::doGetCard()
 {
-	try
-	{
-		return _service.getCard(_session->_cardNum);
-	}
-	catch (const std::exception& e)
-	{
-		throw;
-	}
+	return _service.getCard(_session->_cardNum);
 }

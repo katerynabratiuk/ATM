@@ -1,4 +1,5 @@
 #include "ChangePinWidget.h"
+#include "backend/Exceptions.h"
 
 ChangePinWidget::ChangePinWidget(QWidget *parent)
 	: QWidget(parent)
@@ -58,9 +59,16 @@ void ChangePinWidget::change()
 
 		emit changePage(Pages::SuccessPage);
 	}
-	catch (const std::exception& e)
+	catch (Exceptions e)
 	{
-		_ui.errorInfo->setText("error!!!");
+		if (e == Exceptions::SamePassword)
+		{
+			_ui.errorInfo->setText("New PIN cannot be the same as the old PIN.");
+		}
+		else
+		{
+			_ui.errorInfo->setText("An unexpected error occurred. Please try again.");
+		}
 	}
 }
 

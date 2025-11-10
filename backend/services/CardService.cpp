@@ -1,4 +1,6 @@
 #include "backend/services/CardService.h"
+#include "backend/Exceptions.h"
+#include "backend/models/Card.h"
 
 CardService::CardService(ICardRepository& cardRepository, IBanknoteService& banknoteService,
     ITransactionRepository& txRepo)
@@ -7,18 +9,11 @@ CardService::CardService(ICardRepository& cardRepository, IBanknoteService& bank
 
 void CardService::doAuth(const std::string& cardNum, const std::string& pin)
 {
-    try
+    Card card = _repo.getCard(cardNum);
+    if (pin != card._pin)
     {
-		Card card = _repo.getCard(cardNum);
-        if (pin != card._pin)
-        {
-            throw;
-		}
+        throw Exceptions::AccessDenied;
     }
-    catch (const std::exception& e)
-    {
-        throw;
-	}
 }
 
 void CardService::doDeposit(const std::string& cardNum, int amount)
@@ -28,25 +23,31 @@ void CardService::doDeposit(const std::string& cardNum, int amount)
         _repo.deposit(cardNum, amount);
         //_txRepo.addTransaction(cardNum, "", amount, TransactionType::DEPOSIT, TransactionStatus::SUCCESSFUL);
     }
-    catch (const std::exception& e)
+    catch (Exceptions e)
     {
         //_txRepo.addTransaction(cardNum, "", amount, TransactionType::DEPOSIT, TransactionStatus::FAILED);
-        throw;
+        throw e;
 	}
 }
 
 void CardService::doWithdraw(const std::string& cardNum, int amount)
 {
     try
-    {   
+    {
+        Card card = _repo.getCard(cardNum);
+        if (card._balance < amount)
+        {
+            throw Exceptions::NotEnoughMoney;
+        }
+
         _banknoteService.dispense(amount);
         _repo.withdraw(cardNum, amount);
         //_txRepo.addTransaction(cardNum, "", amount, TransactionType::WITHDRAWAL, TransactionStatus::SUCCESSFUL);
     }
-    catch (const std::exception& e)
+    catch (Exceptions e)
     {
         //_txRepo.addTransaction(cardNum, "", amount, TransactionType::WITHDRAWAL, TransactionStatus::FAILED);
-        throw;
+        throw e;
     }
 }
 
@@ -54,37 +55,38 @@ void CardService::doTransfer(const std::string& from, const std::string& to, int
 {
     try
     {
+        Card card = _repo.getCard(from);
+        if (from == to)
+        {
+            throw Exceptions::SameCard;
+		}
+        if (card._balance < amount)
+        {
+            throw Exceptions::NotEnoughMoney;
+		}
+
         _repo.withdraw(from, amount);
 		_repo.deposit(to, amount);
         //_txRepo.addTransaction(from, to, amount, TransactionType::TRANSFER, TransactionStatus::SUCCESSFUL);
     }
-    catch (const std::exception& e)
+    catch (Exceptions e)
     {
         //_txRepo.addTransaction(from, to, amount, TransactionType::TRANSFER, TransactionStatus::FAILED);
-        throw;
+        throw e;
     }
 }
 
 void CardService::doChangePin(const std::string& cardNum, const std::string& newPin)
 {
-    try
+    Card card = _repo.getCard(cardNum);
+    if (newPin == card._pin)
     {
-		_repo.changePin(cardNum, newPin);
+        throw Exceptions::SamePassword;
     }
-    catch (const std::exception& e)
-    {
-        throw;
-    }
+    _repo.changePin(cardNum, newPin);
 }
 
 Card CardService::doGetCard(const std::string& cardNum)
 {
-    try
-    {
-        return _repo.getCard(cardNum);
-    }
-    catch (const std::exception& e)
-    {
-        throw;
-    }
+    return _repo.getCard(cardNum);
 }

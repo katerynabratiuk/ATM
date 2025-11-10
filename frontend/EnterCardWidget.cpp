@@ -1,5 +1,6 @@
 #include "EnterCardWidget.h"
 #include "EnterPinWidget.h"
+#include "backend/Exceptions.h"
 
 EnterCardWidget::EnterCardWidget(QWidget* parent) : QWidget(parent)
 {
@@ -56,9 +57,16 @@ void EnterCardWidget::setCard()
 
 		emit changePage(Pages::EnterPinPage);
 	}
-	catch (const std::exception& e)
+	catch (Exceptions e)
 	{
-		_ui.errorInfo->setText("error!!!");
+		if (e == Exceptions::DoesntExist)
+		{
+			_ui.errorInfo->setText("Card does not exist.");
+		}
+		else
+		{
+			_ui.errorInfo->setText("An unexpected error occurred. Please try again.");
+		}
 	}
 }
 

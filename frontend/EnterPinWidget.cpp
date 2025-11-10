@@ -1,4 +1,5 @@
 #include "EnterPinWidget.h"
+#include "backend/Exceptions.h"
 
 EnterPinWidget::EnterPinWidget(QWidget * parent) : QWidget(parent)
 {
@@ -57,9 +58,20 @@ void EnterPinWidget::authenticate()
 
 		emit changePage(Pages::MainMenuPage);
 	}
-	catch (const std::exception& e)
+	catch (Exceptions e)
 	{
-		_ui.errorInfo->setText("error!!!");
+		if (e == Exceptions::AccessDenied)
+		{
+			_ui.errorInfo->setText("Incorrect PIN. Please try again.");
+		}
+		if (e == Exceptions::TooManyAttempts)
+		{
+			doOnCancel();
+		}
+		else
+		{
+			_ui.errorInfo->setText("An unexpected error occurred. Please try again.");
+		}
 	}
 }
 

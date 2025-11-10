@@ -1,4 +1,5 @@
 #include "backend/services/BanknoteService.h"
+#include "backend/Exceptions.h"
 #include <map>
 
 BanknoteService::BanknoteService(IBanknoteRepository& repo) : _repo(repo) 
@@ -6,30 +7,23 @@ BanknoteService::BanknoteService(IBanknoteRepository& repo) : _repo(repo)
 
 void BanknoteService::doDispense(int amount)
 {
-	try
-	{
-		std::vector<std::pair<Denominations, int>> counts = _repo.getAllCounts();
-		std::vector<std::pair<Denominations, int>> toDispense;
-        if (!findComb(amount, counts, toDispense))
+    std::vector<std::pair<Denominations, int>> counts = _repo.getAllCounts();
+    std::vector<std::pair<Denominations, int>> toDispense;
+    if (!findComb(amount, counts, toDispense))
+    {
+        throw Exceptions::NoSuchCash;
+    }
+    for (const auto& pair : toDispense)
+    {
+        Denominations denom = pair.first;
+        int count = pair.second;
+        int newCount = _repo.getCount(denom) - count;
+        if (newCount < 0)
         {
-            throw;
-		}
-        for (const auto& pair : toDispense)
-        {
-            Denominations denom = pair.first;
-            int count = pair.second;
-            int newCount = _repo.getCount(denom) - count;
-            if (newCount < 0)
-            {
-                throw;
-			}
-            _repo.setCount(denom, newCount);
-		}      
-	}
-	catch (const std::exception& e)
-	{
-		throw;
-	}
+            throw Exceptions::NoSuchCash;
+        }
+        _repo.setCount(denom, newCount);
+    }
 }
 
 bool BanknoteService::findComb(int target, 
