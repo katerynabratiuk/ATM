@@ -116,6 +116,7 @@
   <ItemGroup>
     <ClInclude Include="backend\controllers\CardController.h" />
     <ClInclude Include="backend\Denominations.h" />
+    <ClInclude Include="backend\Exceptions.h" />
     <ClInclude Include="backend\repositories\IBanknoteRepository.h" />
     <ClInclude Include="backend\controllers\ITransactionController.h" />
     <ClInclude Include="backend\controllers\TransactionController.h" />

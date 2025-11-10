@@ -1,4 +1,5 @@
 #include "DepositWidget.h"
+#include "backend/Exceptions.h"
 
 DepositWidget::DepositWidget(QWidget *parent)
 	: QWidget(parent)
@@ -60,9 +61,9 @@ void DepositWidget::deposit()
 
 		emit changePage(Pages::SuccessPage);
 	}
-	catch (const std::exception& e)
+	catch (Exceptions e)
 	{
-		_ui.errorInfo->setText("error!!!");
+		_ui.errorInfo->setText("An unexpected error occurred. Please try again.");
 	}
 }
 

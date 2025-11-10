@@ -10,12 +10,5 @@ std::vector<Transaction> TransactionController::doGetHistory(const std::string& 
     //if (limit <= 0) limit = 10;
     //if (offset < 0) offset = 0;
 
-    try
-    {
-        return _service.listByCard(cardNumber, limit, offset);
-    }
-    catch (const std::exception& e)
-    {
-        throw;
-	} 
+    return _service.listByCard(cardNumber, limit, offset);
 }
