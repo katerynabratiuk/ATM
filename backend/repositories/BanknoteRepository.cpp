@@ -20,7 +20,6 @@ int BanknoteRepository::doGetCount(Denominations denom)
 
 void BanknoteRepository::doSetCount(Denominations denom, int count)
 {
-    if (count < 0) throw std::invalid_argument("count must be non-negative");
 
     auto& conn = _connection.getConnection();
     pqxx::work txn{ conn };
