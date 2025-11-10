@@ -1,6 +1,7 @@
 #include "backend/services/CardService.h"
 #include "backend/Exceptions.h"
 #include "backend/models/Card.h"
+#include "backend/external/libbcrypt/include/bcrypt/BCrypt.hpp"
 
 CardService::CardService(ICardRepository& cardRepository, IBanknoteService& banknoteService,
     ITransactionRepository& txRepo)
@@ -10,7 +11,8 @@ CardService::CardService(ICardRepository& cardRepository, IBanknoteService& bank
 void CardService::doAuth(const std::string& cardNum, const std::string& pin)
 {
     Card card = _repo.getCard(cardNum);
-    if (pin != card._pin)
+
+    if (!BCrypt::validatePassword(pin, card._pin))
     {
         throw Exceptions::AccessDenied;
     }
