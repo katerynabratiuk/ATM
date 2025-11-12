@@ -3,5 +3,6 @@
   "version-string": "0.1.0",
   "dependencies": [
     "libpqxx"
-  ]
+  ],
+  "builtin-baseline": "365f6444ab40ee87c73c947b475b3a267b3cb77c"
 }
