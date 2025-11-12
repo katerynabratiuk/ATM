@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(ATMSimulator LANGUAGES CXX)
+project(ATMSimulator LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -58,7 +58,6 @@ set(BCRYPT_HINT_LIB
 )
 
 find_path(BCRYPT_INCLUDE_DIR NAMES bcrypt/BCrypt.hpp PATHS ${BCRYPT_HINT_INCLUDE} NO_DEFAULT_PATH)
-
 find_library(BCRYPT_LIBRARY NAMES libbcrypt PATHS ${BCRYPT_HINT_LIB} NO_DEFAULT_PATH)
 
 set(_bcrypt_dll_candidates
@@ -74,16 +73,39 @@ foreach(_cand IN LISTS _bcrypt_dll_candidates)
   endif()
 endforeach()
 
+set(_bcrypt_link_target "")
 if (BCRYPT_INCLUDE_DIR AND BCRYPT_LIBRARY)
   message(STATUS "Found libbcrypt: ${BCRYPT_LIBRARY}")
-  target_include_directories(ATMSimulator BEFORE PRIVATE ${BCRYPT_INCLUDE_DIR})
-  target_link_libraries(ATMSimulator PRIVATE ${BCRYPT_LIBRARY})
+  set(_bcrypt_link_target ${BCRYPT_LIBRARY})
   if (BCRYPT_DLL)
     add_custom_command(TARGET ATMSimulator POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy_if_different "${BCRYPT_DLL}" "$<TARGET_FILE_DIR:ATMSimulator>")
   endif()
 else()
-  message(WARNING "libbcrypt not found. Update BCRYPT_HINT_* or build/install libbcrypt.")
+  set(_bcrypt_vendor_dir "${CMAKE_SOURCE_DIR}/backend/external/libbcrypt")
+  set(_bcrypt_vendor_sources
+      "${_bcrypt_vendor_dir}/src/bcrypt.c"
+      "${_bcrypt_vendor_dir}/src/crypt_blowfish.c"
+      "${_bcrypt_vendor_dir}/src/crypt_gensalt.c"
+      "${_bcrypt_vendor_dir}/src/wrapper.c"
+  )
+  if (EXISTS "${_bcrypt_vendor_dir}")
+    message(STATUS "Building bundled libbcrypt sources.")
+    add_library(libbcrypt STATIC ${_bcrypt_vendor_sources})
+    target_include_directories(libbcrypt PUBLIC "${_bcrypt_vendor_dir}/include")
+    set(_bcrypt_link_target libbcrypt)
+    set(BCRYPT_INCLUDE_DIR "${_bcrypt_vendor_dir}/include")
+  else()
+    message(WARNING "libbcrypt not found. Update BCRYPT_HINT_* or build/install libbcrypt.")
+  endif()
+endif()
+
+if (BCRYPT_INCLUDE_DIR)
+  target_include_directories(ATMSimulator BEFORE PRIVATE ${BCRYPT_INCLUDE_DIR})
+endif()
+
+if (_bcrypt_link_target)
+  target_link_libraries(ATMSimulator PRIVATE ${_bcrypt_link_target})
 endif()
 
 target_link_libraries(ATMSimulator
