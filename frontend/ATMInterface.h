@@ -15,7 +15,7 @@
 #include "frontend/BalanceWidget.h"
 #include "frontend/HistoryWidget.h"
 #include "backend/controllers/ICardController.h"
-#include "backend/Enums.h"
+#include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
 
 class ATMInterface : public QMainWindow

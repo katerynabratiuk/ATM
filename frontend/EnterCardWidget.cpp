@@ -1,6 +1,6 @@
 #include "EnterCardWidget.h"
 #include "EnterPinWidget.h"
-#include "backend/Exceptions.h"
+#include "backend/enums/Exceptions.h"
 
 EnterCardWidget::EnterCardWidget(QWidget* parent) : QWidget(parent)
 {

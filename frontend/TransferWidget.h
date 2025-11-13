@@ -4,7 +4,7 @@
 #include "ui_TransferWidget.h"
 #include <QRegularExpressionValidator>
 
-#include "backend/Enums.h"
+#include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
 
 class TransferWidget : public QWidget, public IPage

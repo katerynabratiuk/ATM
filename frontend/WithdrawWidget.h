@@ -4,7 +4,7 @@
 #include "ui_WithdrawWidget.h"
 
 #include "frontend/IPage.h"
-#include "backend/Enums.h"
+#include "backend/enums/Pages.h"
 
 class WithdrawWidget : public QWidget, public IPage
 {

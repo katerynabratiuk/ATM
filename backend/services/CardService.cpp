@@ -1,5 +1,5 @@
 #include "backend/services/CardService.h"
-#include "backend/Exceptions.h"
+#include "backend/enums/Exceptions.h"
 #include "backend/models/Card.h"
 #include "backend/external/libbcrypt/include/bcrypt/BCrypt.hpp"
 
@@ -61,12 +61,15 @@ void CardService::doTransfer(const std::string& from, const std::string& to, int
 {
     try
     {
-        Card card = _repo.getCard(from);
         if (from == to)
         {
             throw Exceptions::SameCard;
 		}
-        if (card._balance < amount)
+
+        Card cardTo = _repo.getCard(to);
+        Card cardFrom = _repo.getCard(from);
+
+        if (cardFrom._balance < amount)
         {
             throw Exceptions::NotEnoughMoney;
 		}
@@ -74,12 +77,12 @@ void CardService::doTransfer(const std::string& from, const std::string& to, int
         _repo.withdraw(from, amount);
 		_repo.deposit(to, amount);
         _txRepo.addTransaction(Transaction(from, to,
-            TransactionType::WITHDRAWAL, amount, TransactionStatus::SUCCESSFUL));
+            TransactionType::TRANSFER, amount, TransactionStatus::SUCCESSFUL));
     }
     catch (Exceptions e)
     {
         _txRepo.addTransaction(Transaction(from, to,
-            TransactionType::WITHDRAWAL, amount, TransactionStatus::FAILED));
+            TransactionType::TRANSFER, amount, TransactionStatus::FAILED));
         throw e;
     }
 }
@@ -87,7 +90,7 @@ void CardService::doTransfer(const std::string& from, const std::string& to, int
 void CardService::doChangePin(const std::string& cardNum, const std::string& newPin)
 {
     Card card = _repo.getCard(cardNum);
-    if (newPin == card._pin)
+    if (BCrypt::validatePassword(newPin, card._pin))
     {
         throw Exceptions::SamePassword;
     }

@@ -1,5 +1,5 @@
 #include "EnterPinWidget.h"
-#include "backend/Exceptions.h"
+#include "backend/enums/Exceptions.h"
 
 EnterPinWidget::EnterPinWidget(QWidget * parent) : QWidget(parent)
 {

@@ -5,7 +5,7 @@
 #include "ui_MainMenuWidget.h"
 
 #include "frontend/IPage.h"
-#include "backend/Enums.h"
+#include "backend/enums/Pages.h"
 
 class MainMenuWidget : public QWidget, public IPage
 {

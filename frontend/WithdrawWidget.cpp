@@ -1,5 +1,5 @@
 #include "WithdrawWidget.h"
-#include "backend/Exceptions.h"
+#include "backend/enums/Exceptions.h"
 
 WithdrawWidget::WithdrawWidget(QWidget *parent) : QWidget(parent)
 {

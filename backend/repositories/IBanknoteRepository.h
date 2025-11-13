@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "backend/Denominations.h"
+#include "backend/enums/Denominations.h"
 
 class IBanknoteRepository
 {

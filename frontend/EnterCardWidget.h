@@ -4,7 +4,7 @@
 #include "ui_EnterCardWidget.h"
 #include <QRegularExpressionValidator>
 
-#include "backend/Enums.h"
+#include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
 
 class EnterCardWidget : public QWidget, public IPage

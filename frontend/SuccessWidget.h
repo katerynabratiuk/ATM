@@ -3,7 +3,7 @@
 #include <QWidget>
 #include "ui_SuccessWidget.h"
 
-#include "backend/Enums.h"
+#include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
 
 class SuccessWidget : public QWidget, public IPage

@@ -4,7 +4,7 @@
 #include "ui_EnterPinWidget.h"
 #include <QRegularExpressionValidator>
 
-#include "backend/Enums.h"
+#include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
 
 class EnterPinWidget : public QWidget, public IPage

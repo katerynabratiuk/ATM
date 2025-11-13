@@ -1,5 +1,5 @@
 #include "backend/controllers/CardController.h"
-#include "backend/Exceptions.h"
+#include "backend/enums/Exceptions.h"
 
 CardController::CardController(ICardService& service) : _session(nullptr), _service(service), _attempts(0)
 {}

@@ -1,5 +1,5 @@
 #include "DepositWidget.h"
-#include "backend/Exceptions.h"
+#include "backend/enums/Exceptions.h"
 
 DepositWidget::DepositWidget(QWidget *parent)
 	: QWidget(parent)
