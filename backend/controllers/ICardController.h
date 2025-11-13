@@ -39,7 +39,7 @@ public:
 
 	void changePin(const std::string& newPin)
 	{
-		changePin(newPin);
+		doChangePin(newPin);
 	}
 
 	Card getCard()
