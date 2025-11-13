@@ -4,7 +4,7 @@
 #include "ui_BalanceWidget.h"
 
 #include "backend/core/Money.h"
-#include "backend/Enums.h"
+#include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
 #include "backend/models/Card.h"
 

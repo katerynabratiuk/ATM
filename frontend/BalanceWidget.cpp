@@ -1,5 +1,5 @@
 #include "BalanceWidget.h"
-#include "backend/Exceptions.h"
+#include "backend/enums/Exceptions.h"
 
 BalanceWidget::BalanceWidget(QWidget *parent)
 	: QWidget(parent)

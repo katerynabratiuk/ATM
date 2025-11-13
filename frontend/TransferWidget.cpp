@@ -1,5 +1,5 @@
 #include "TransferWidget.h"
-#include "backend/Exceptions.h"
+#include "backend/enums/Exceptions.h"
 
 TransferWidget::TransferWidget(QWidget* parent)
 	: QWidget(parent), _top(true)

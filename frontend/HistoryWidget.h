@@ -3,7 +3,7 @@
 #include <QWidget>
 #include "ui_HistoryWidget.h"
 
-#include "backend/Enums.h"
+#include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
 
 class HistoryWidget : public QWidget, public IPage

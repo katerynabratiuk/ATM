@@ -1,5 +1,6 @@
 #include "backend/services/BanknoteService.h"
-#include "backend/Exceptions.h"
+#include "backend/enums/Exceptions.h"
+#include "backend/enums/Denominations.h"
 #include <map>
 
 BanknoteService::BanknoteService(IBanknoteRepository& repo) : _repo(repo) 

@@ -1,5 +1,5 @@
 #include "ChangePinWidget.h"
-#include "backend/Exceptions.h"
+#include "backend/enums/Exceptions.h"
 
 ChangePinWidget::ChangePinWidget(QWidget *parent)
 	: QWidget(parent)

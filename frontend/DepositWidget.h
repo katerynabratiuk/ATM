@@ -4,7 +4,7 @@
 #include "ui_DepositWidget.h"
 
 #include "frontend/IPage.h"
-#include "backend/Enums.h"
+#include "backend/enums/Pages.h"
 
 class DepositWidget : public QWidget, public IPage
 {

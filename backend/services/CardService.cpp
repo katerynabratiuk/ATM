@@ -1,5 +1,5 @@
 #include "backend/services/CardService.h"
-#include "backend/Exceptions.h"
+#include "backend/enums/Exceptions.h"
 #include "backend/models/Card.h"
 #include "backend/external/libbcrypt/include/bcrypt/BCrypt.hpp"
 

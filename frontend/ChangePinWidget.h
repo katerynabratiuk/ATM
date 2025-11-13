@@ -4,7 +4,7 @@
 #include "ui_ChangePinWidget.h"
 #include <QRegularExpressionValidator>
 
-#include "backend/Enums.h"
+#include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
 
 class ChangePinWidget : public QWidget, public IPage
