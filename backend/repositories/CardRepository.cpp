@@ -7,7 +7,7 @@
 #include <pqxx/params.hxx>
 
 
-void CardRepository::doDeposit(const std::string& cardNumber, int amount) {
+void CardRepository::doAddBalance(const std::string& cardNumber, int amount) {
     auto& conn = _connection.getConnection();
 
     pqxx::work txn{ conn };
@@ -22,7 +22,7 @@ void CardRepository::doDeposit(const std::string& cardNumber, int amount) {
     return;
 }
 
-void CardRepository::doWithdraw(const std::string& cardNumber, int amount) {
+void CardRepository::doSubtractBalance(const std::string& cardNumber, int amount) {
     auto& conn = _connection.getConnection();
 
     pqxx::work txn{ conn };
@@ -37,8 +37,7 @@ void CardRepository::doWithdraw(const std::string& cardNumber, int amount) {
     return;
 }
 
-
-void CardRepository::doChangePin(const std::string& cardNumber, const std::string& pin) {
+void CardRepository::doUpdatePin(const std::string& cardNumber, const std::string& pin) {
     auto& conn = _connection.getConnection();
 
     pqxx::work txn{ conn };

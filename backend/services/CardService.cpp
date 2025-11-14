@@ -3,8 +3,7 @@
 #include "backend/models/Card.h"
 #include "backend/external/libbcrypt/include/bcrypt/BCrypt.hpp"
 
-CardService::CardService(ICardRepository& cardRepository, IBanknoteService& banknoteService,
-    ITransactionRepository& txRepo)
+CardService::CardService(ICardRepository& cardRepository, IBanknoteService& banknoteService, ITransactionRepository& txRepo)
 	: _repo(cardRepository), _banknoteService(banknoteService), _txRepo(txRepo)
 {}
 
@@ -22,7 +21,10 @@ void CardService::doDeposit(const std::string& cardNum, int amount)
 {
     try
     {
-        _repo.deposit(cardNum, amount);
+        Card card = _repo.getCard(cardNum);
+        if (card._creditLimit > 0) _repo.subtractBalance(cardNum, amount);
+		else _repo.addBalance(cardNum, amount);
+        
         _txRepo.addTransaction(Transaction(cardNum, cardNum, 
             TransactionType::DEPOSIT, amount, TransactionStatus::SUCCESSFUL));
     }
@@ -39,13 +41,25 @@ void CardService::doWithdraw(const std::string& cardNum, int amount)
     try
     {
         Card card = _repo.getCard(cardNum);
-        if (card._balance < amount)
+        if (card._creditLimit <= 0)
         {
-            throw Exceptions::NotEnoughMoney;
+            if (card._balance < amount)
+            {
+                throw Exceptions::NotEnoughMoney;
+            }
+            _banknoteService.dispense(amount);
+			_repo.subtractBalance(cardNum, amount);
+        }
+        else
+        {
+            if (card._balance + amount > card._creditLimit)
+            {
+                throw Exceptions::NotEnoughMoney;
+            }
+            _banknoteService.dispense(amount);
+			_repo.addBalance(cardNum, amount);
         }
 
-        _banknoteService.dispense(amount);
-        _repo.withdraw(cardNum, amount);
         _txRepo.addTransaction(Transaction(cardNum, cardNum,
             TransactionType::WITHDRAWAL, amount, TransactionStatus::SUCCESSFUL));
     }
@@ -69,13 +83,26 @@ void CardService::doTransfer(const std::string& from, const std::string& to, int
         Card cardTo = _repo.getCard(to);
         Card cardFrom = _repo.getCard(from);
 
-        if (cardFrom._balance < amount)
+        if (cardFrom._creditLimit <= 0)
         {
-            throw Exceptions::NotEnoughMoney;
-		}
+            if (cardFrom._balance < amount)
+            {
+                throw Exceptions::NotEnoughMoney;
+            }
+            _repo.subtractBalance(from, amount);
+        }
+        else
+        {
+            if (cardFrom._balance + amount > cardFrom._creditLimit)
+            {
+                throw Exceptions::NotEnoughMoney;
+            }
+            _repo.addBalance(from, amount);
+        }
 
-        _repo.withdraw(from, amount);
-		_repo.deposit(to, amount);
+        if (cardTo._creditLimit > 0) _repo.subtractBalance(to, amount);
+        else _repo.addBalance(to, amount);
+
         _txRepo.addTransaction(Transaction(from, to,
             TransactionType::TRANSFER, amount, TransactionStatus::SUCCESSFUL));
     }
