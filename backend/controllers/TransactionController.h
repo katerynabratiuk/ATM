@@ -13,6 +13,5 @@ public:
 private:
     ITransactionService& _service;
 
-    std::vector<Transaction> doGetHistory(const std::string& cardNumber,
-        int limit, int offset) override;
+    std::vector<Transaction> doGetHistory(const std::string& cardNumber) override;
 };

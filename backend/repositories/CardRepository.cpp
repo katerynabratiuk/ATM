@@ -9,19 +9,22 @@
 #include <stdexcept>
 
 
-void CardRepository::doDeposit(const std::string& cardNumber, int amount) {
-    try {
-        auto& conn = _connection.getConnection();
+void CardRepository::doAddBalance(const std::string& cardNumber, int amount) {
+    try 
+    {
+    auto& conn = _connection.getConnection();
+    
 
-        pqxx::work txn{ conn };
+    pqxx::work txn{ conn };
 
-        const std::string_view query =
-            "UPDATE card "
-            "SET balance = balance + $2 "
-            "WHERE card_number = $1;";
+    const std::string_view query =
+        "UPDATE card "
+        "SET balance = balance + $2 "
+        "WHERE card_number = $1;";
 
-        txn.exec_params(query, cardNumber, amount);
-        txn.commit();
+    txn.exec_params(query, cardNumber, amount);
+    txn.commit();
+    return;
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
@@ -34,22 +37,23 @@ void CardRepository::doDeposit(const std::string& cardNumber, int amount) {
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
         throw DBExceptions::DatabaseError;
-    }
 }
 
-void CardRepository::doWithdraw(const std::string& cardNumber, int amount) {
-    try {
-        auto& conn = _connection.getConnection();
+void CardRepository::doSubtractBalance(const std::string& cardNumber, int amount) {
+    try 
+    {
+    auto& conn = _connection.getConnection();
 
-        pqxx::work txn{ conn };
+    pqxx::work txn{ conn };
 
-        const std::string_view query =
-            "UPDATE card "
-            "SET balance = balance - $2 "
-            "WHERE card_number = $1;";
+    const std::string_view query =
+        "UPDATE card "
+        "SET balance = balance - $2 "
+        "WHERE card_number = $1;";
 
-        txn.exec_params(query, cardNumber, amount);
-        txn.commit();
+    txn.exec_params(query, cardNumber, amount);
+    txn.commit();
+    return;
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
@@ -62,23 +66,23 @@ void CardRepository::doWithdraw(const std::string& cardNumber, int amount) {
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
         throw DBExceptions::DatabaseError;
-    }
 }
 
+void CardRepository::doUpdatePin(const std::string& cardNumber, const std::string& pin) {
+    try 
+    {
+    auto& conn = _connection.getConnection();
 
-void CardRepository::doChangePin(const std::string& cardNumber, const std::string& pin) {
-    try {
-        auto& conn = _connection.getConnection();
+    pqxx::work txn{ conn };
 
-        pqxx::work txn{ conn };
+    const std::string_view query =
+        "UPDATE card "
+        "SET pin_hash = crypt($2, pin_hash) "
+        "WHERE card_number = $1;";
 
-        const std::string_view query =
-            "UPDATE card "
-            "SET pin_hash = crypt($2, pin_hash) "
-            "WHERE card_number = $1;";
-
-        txn.exec_params(query, cardNumber, pin);
-        txn.commit();
+    txn.exec_params(query, cardNumber, pin);
+    txn.commit();
+    return;
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
@@ -91,7 +95,6 @@ void CardRepository::doChangePin(const std::string& cardNumber, const std::strin
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
         throw DBExceptions::DatabaseError;
-    }
 }
 
 Card CardRepository::doGetCard(const std::string& cardNumber){

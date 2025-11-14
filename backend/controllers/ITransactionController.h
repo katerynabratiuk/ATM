@@ -8,12 +8,11 @@ class ITransactionController
 public:
     virtual ~ITransactionController() = default;
 
-    std::vector<Transaction> getHistory(const std::string& cardNumber, int limit, int offset)
+    std::vector<Transaction> getHistory(const std::string& cardNumber)
     {
-		return doGetHistory(cardNumber, limit, offset);
+		return doGetHistory(cardNumber);
     }
 
 private:
-    virtual std::vector<Transaction> doGetHistory(const std::string& cardNumber, 
-        int limit, int offset) = 0;
+    virtual std::vector<Transaction> doGetHistory(const std::string& cardNumber) = 0;
 };

@@ -11,7 +11,6 @@ public:
 private:
     ITransactionRepository& _repo;
 
-    std::vector<Transaction> doListByCard(const std::string& cardNumber, 
-        int limit, int offset) override;
+    std::vector<Transaction> doListByCard(const std::string& cardNumber) override;
     Transaction doGetLast(const std::string& cardNumber) override;
 };

@@ -4,11 +4,7 @@ TransactionController::TransactionController(ITransactionService& service)
     : _service(service)
 {}
 
-std::vector<Transaction> TransactionController::doGetHistory(const std::string& cardNumber, 
-    int limit, int offset)
+std::vector<Transaction> TransactionController::doGetHistory(const std::string& cardNumber)
 {
-    //if (limit <= 0) limit = 10;
-    //if (offset < 0) offset = 0;
-
-    return _service.listByCard(cardNumber, limit, offset);
+    return _service.listByCard(cardNumber);
 }
