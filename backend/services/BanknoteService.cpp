@@ -28,7 +28,7 @@ void BanknoteService::doDispense(int amount)
         }
     }
     catch (const DBExceptions& dbException) {
-        throw Exceptions::NoSuchCash;
+        throw;
     }
 }
 

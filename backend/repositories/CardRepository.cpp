@@ -37,6 +37,7 @@ void CardRepository::doAddBalance(const std::string& cardNumber, int amount) {
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
         throw DBExceptions::DatabaseError;
+    }
 }
 
 void CardRepository::doSubtractBalance(const std::string& cardNumber, int amount) {
@@ -66,6 +67,7 @@ void CardRepository::doSubtractBalance(const std::string& cardNumber, int amount
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
         throw DBExceptions::DatabaseError;
+    }
 }
 
 void CardRepository::doUpdatePin(const std::string& cardNumber, const std::string& pin) {
@@ -95,6 +97,7 @@ void CardRepository::doUpdatePin(const std::string& cardNumber, const std::strin
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
         throw DBExceptions::DatabaseError;
+    }
 }
 
 Card CardRepository::doGetCard(const std::string& cardNumber){

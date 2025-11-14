@@ -43,7 +43,7 @@ void CardService::doDeposit(const std::string& cardNum, int amount)
         if (dbException == DBExceptions::RecordNotFound) {
             throw Exceptions::DoesntExist;
         }
-        throw Exceptions::DoesntExist;
+        throw;
     }
     catch (Exceptions e)
     {
@@ -87,7 +87,7 @@ void CardService::doWithdraw(const std::string& cardNum, int amount)
         if (dbException == DBExceptions::RecordNotFound) {
             throw Exceptions::DoesntExist;
         }
-        throw Exceptions::DoesntExist;
+        throw;
     }
     catch (Exceptions e)
     {
@@ -139,7 +139,7 @@ void CardService::doTransfer(const std::string& from, const std::string& to, int
         if (dbException == DBExceptions::RecordNotFound) {
             throw Exceptions::DoesntExist;
         }
-        throw Exceptions::DoesntExist;
+        throw;
     }
     catch (Exceptions e)
     {
@@ -158,13 +158,13 @@ void CardService::doChangePin(const std::string& cardNum, const std::string& new
             throw Exceptions::SamePassword;
         }
         std::string newHashedPass = BCrypt::generateHash(newPin);
-        _repo.changePin(cardNum, newHashedPass);
+        _repo.updatePin(cardNum, newHashedPass);
     }
     catch (const DBExceptions& dbException) {
         if (dbException == DBExceptions::RecordNotFound) {
             throw Exceptions::DoesntExist;
         }
-        throw Exceptions::DoesntExist;
+        throw;
     }
 }
 
@@ -177,6 +177,6 @@ Card CardService::doGetCard(const std::string& cardNum)
         if (dbException == DBExceptions::RecordNotFound) {
             throw Exceptions::DoesntExist;
         }
-        throw Exceptions::DoesntExist;
+        throw;
     }
 }
