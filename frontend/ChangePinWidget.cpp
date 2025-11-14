@@ -1,8 +1,8 @@
 #include "ChangePinWidget.h"
 #include "backend/enums/Exceptions.h"
 
-ChangePinWidget::ChangePinWidget(QWidget *parent)
-	: QWidget(parent)
+ChangePinWidget::ChangePinWidget(ICardController& cardController, QWidget *parent)
+	: QWidget(parent), _cardController(cardController)
 {
 	_ui.setupUi(this);
 
@@ -53,7 +53,7 @@ void ChangePinWidget::change()
 
 	try
 	{
-		//_cardController->changePin(_ui.pinForm->text().toStdString());
+		_cardController.changePin(_ui.pinForm->text().toStdString());
 
 		clean();
 

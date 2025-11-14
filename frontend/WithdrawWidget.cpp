@@ -1,7 +1,8 @@
 #include "WithdrawWidget.h"
 #include "backend/enums/Exceptions.h"
 
-WithdrawWidget::WithdrawWidget(QWidget *parent) : QWidget(parent)
+WithdrawWidget::WithdrawWidget(ICardController& cardController, QWidget *parent) 
+	: QWidget(parent), _cardController(cardController)
 {
 	_ui.setupUi(this);
 
@@ -54,7 +55,7 @@ void WithdrawWidget::withdraw()
 
 	try
 	{
-		//_cardController->withdraw(_ui.amountForm->text().toInt());
+		_cardController.withdraw(_ui.amountForm->text().toInt());
 
 		clean();
 

@@ -1,7 +1,8 @@
 #include "EnterPinWidget.h"
 #include "backend/enums/Exceptions.h"
 
-EnterPinWidget::EnterPinWidget(QWidget * parent) : QWidget(parent)
+EnterPinWidget::EnterPinWidget(ICardController& cardController, QWidget * parent) 
+	: QWidget(parent), _cardController(cardController)
 {
 	_ui.setupUi(this);
 
@@ -52,7 +53,7 @@ void EnterPinWidget::authenticate()
 
 	try
 	{
-		//_cardController->authenticate(_ui.pinForm->text().toStdString());
+		_cardController.authenticate(_ui.pinForm->text().toStdString());
 
 		clean();
 

@@ -1,8 +1,8 @@
 #include "DepositWidget.h"
 #include "backend/enums/Exceptions.h"
 
-DepositWidget::DepositWidget(QWidget *parent)
-	: QWidget(parent)
+DepositWidget::DepositWidget(ICardController& cardController, QWidget *parent)
+	: QWidget(parent), _cardController(cardController)
 {
 	_ui.setupUi(this);
 
@@ -55,7 +55,7 @@ void DepositWidget::deposit()
 
 	try
 	{
-		//_cardController->deposit(_ui.amountForm->text().toInt());
+		_cardController.deposit(_ui.amountForm->text().toInt());
 
 		clean();
 

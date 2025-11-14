@@ -5,13 +5,14 @@
 
 #include "frontend/IPage.h"
 #include "backend/enums/Pages.h"
+#include "backend/controllers/ICardController.h"
 
 class DepositWidget : public QWidget, public IPage
 {
 	Q_OBJECT
 	Q_INTERFACES(IPage)
 public:
-	DepositWidget(QWidget *parent = nullptr);
+	DepositWidget(ICardController& cardController, QWidget *parent = nullptr);
 	~DepositWidget();
 
 	void doOnDigit(int digit) override;
@@ -25,7 +26,7 @@ signals:
 private:
 	Ui::DepositWidgetClass _ui;
 
-	// ICardController& _cardController;
+	ICardController& _cardController;
 
 	void clean();
 	void deposit();

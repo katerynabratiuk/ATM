@@ -7,13 +7,14 @@
 #include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
 #include "backend/models/Card.h"
+#include "backend/controllers/ICardController.h"
 
 class BalanceWidget : public QWidget, public IPage
 {
 	Q_OBJECT
 	Q_INTERFACES(IPage)
 public:
-	BalanceWidget(QWidget *parent = nullptr);
+	BalanceWidget(ICardController& cardController, QWidget *parent = nullptr);
 	~BalanceWidget();
 
 	void doOnEnter() override;
@@ -26,6 +27,6 @@ signals:
 
 private:
 	Ui::BalanceWidgetClass _ui;
-	// ICardController& _cardController;
+	ICardController& _cardController;
 };
 

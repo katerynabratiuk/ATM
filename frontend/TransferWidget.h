@@ -6,13 +6,14 @@
 
 #include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
+#include "backend/controllers/ICardController.h"
 
 class TransferWidget : public QWidget, public IPage
 {
 	Q_OBJECT
 	Q_INTERFACES(IPage)
 public:
-	TransferWidget(QWidget* parent = nullptr);
+	TransferWidget(ICardController& cardController, QWidget* parent = nullptr);
 	~TransferWidget();
 
 	void doOnDigit(int digit) override;
@@ -29,7 +30,7 @@ private:
 
 	bool _top;
 
-	// ICardController& _cardController;
+	ICardController& _cardController;
 
 	void clean();
 	void transfer();

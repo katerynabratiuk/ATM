@@ -1,8 +1,8 @@
 #include "TransferWidget.h"
 #include "backend/enums/Exceptions.h"
 
-TransferWidget::TransferWidget(QWidget* parent)
-	: QWidget(parent), _top(true)
+TransferWidget::TransferWidget(ICardController& cardController, QWidget* parent)
+	: QWidget(parent), _top(true), _cardController(cardController)
 {
 	_ui.setupUi(this);
 
@@ -88,8 +88,8 @@ void TransferWidget::transfer()
 
 	try
 	{
-		//_cardController->transfer(_ui.cardForm->text().toStdString(), 
-		// _ui.amountForm->text().toInt());
+		_cardController.transfer(_ui.cardForm->text().toStdString(), 
+			_ui.amountForm->text().toInt());
 
 		clean();
 
