@@ -8,11 +8,6 @@ enum class Exceptions
 	NotEnoughMoney,
 	SamePassword,
 	SameCard,
-	AccessDenied
-};
-
-enum class DBExceptions {
-	DatabaseError,
-	ConnectionError,
-	RecordNotFound
+	AccessDenied,
+	DBException
 };

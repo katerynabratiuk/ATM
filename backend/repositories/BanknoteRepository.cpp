@@ -21,17 +21,15 @@ int BanknoteRepository::doGetCount(Denominations denom)
         return r[0]["count"].as<int>();
     }
     catch (const pqxx::broken_connection& e) {
-        std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
+        std::cerr << "Connection error: " << e.what() << "\n"; 
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
+    throw Exceptions::DBException;
 }
 
 void BanknoteRepository::doSetCount(Denominations denom, int count)
@@ -51,16 +49,14 @@ void BanknoteRepository::doSetCount(Denominations denom, int count)
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
+    throw Exceptions::DBException;
 }
 
 std::vector<std::pair<Denominations, int>> BanknoteRepository::doGetAllCounts()
@@ -90,14 +86,14 @@ std::vector<std::pair<Denominations, int>> BanknoteRepository::doGetAllCounts()
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
+        throw Exceptions::DBException;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DBException;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DBException;
     }
 }

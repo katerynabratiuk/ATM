@@ -28,16 +28,14 @@ void CardRepository::doAddBalance(const std::string& cardNumber, int amount) {
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
+    throw Exceptions::DBException;
 }
 
 void CardRepository::doSubtractBalance(const std::string& cardNumber, int amount) {
@@ -58,16 +56,14 @@ void CardRepository::doSubtractBalance(const std::string& cardNumber, int amount
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
+    throw Exceptions::DBException;
 }
 
 void CardRepository::doUpdatePin(const std::string& cardNumber, const std::string& pin) {
@@ -88,16 +84,14 @@ void CardRepository::doUpdatePin(const std::string& cardNumber, const std::strin
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
+    throw Exceptions::DBException;
 }
 
 Card CardRepository::doGetCard(const std::string& cardNumber){
@@ -114,7 +108,7 @@ Card CardRepository::doGetCard(const std::string& cardNumber){
         pqxx::result result = txn.exec_params(query, cardNumber);
 
         if (result.empty()) {
-            throw DBExceptions::RecordNotFound;
+            throw Exceptions::DoesntExist;
         }
 
         auto row = result[0];
@@ -130,19 +124,14 @@ Card CardRepository::doGetCard(const std::string& cardNumber){
 
         return card;
     }
-    catch (const DBExceptions& dbException) {
-        throw;
-    }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
     }
+    throw Exceptions::DBException;
 }

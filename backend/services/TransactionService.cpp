@@ -11,11 +11,11 @@ std::vector<Transaction> TransactionService::doListByCard(const std::string& car
     try {
         return _repo.listTransactions(cardNumber);
     }
-    catch (const DBExceptions& dbException) {
-        if (dbException == DBExceptions::RecordNotFound) {
+    catch (const Exceptions& exception) {
+        if (exception == Exceptions::DoesntExist) {
             return std::vector<Transaction>();
         }
-        throw Exceptions::DoesntExist;
+        throw;
     }
 }
 
@@ -24,10 +24,8 @@ Transaction TransactionService::doGetLast(const std::string& cardNumber)
     try {
         return _repo.getLastTransaction(cardNumber);
     }
-    catch (const DBExceptions& dbException) {
-        if (dbException == DBExceptions::RecordNotFound) {
-            throw Exceptions::DoesntExist;
-        }
-        throw Exceptions::DoesntExist;
+    catch (const Exceptions& e) {
+        std::cerr << "Error getting last transaction for card " << cardNumber << std::endl;
+        throw;
     }
 }

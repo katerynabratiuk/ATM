@@ -17,11 +17,11 @@ void CardService::doAuth(const std::string& cardNum, const std::string& pin)
             throw Exceptions::AccessDenied;
         }
     }
-    catch (const DBExceptions& dbException) {
-        if (dbException == DBExceptions::RecordNotFound) {
-            throw Exceptions::DoesntExist;
+    catch (const Exceptions& exception) {
+        if (exception == Exceptions::DoesntExist) {
+            throw; // Already the right exception
         }
-        throw Exceptions::DoesntExist;
+        throw; // Let DBException/ConnectionError propagate
     }
 }
 
@@ -36,21 +36,12 @@ void CardService::doDeposit(const std::string& cardNum, int amount)
         _txRepo.addTransaction(Transaction(cardNum, cardNum, 
             TransactionType::DEPOSIT, amount, TransactionStatus::SUCCESSFUL));
     }
-    catch (const DBExceptions& dbException)
+    catch (const Exceptions& exception)
     {
         _txRepo.addTransaction(Transaction(cardNum, cardNum,
             TransactionType::DEPOSIT, amount, TransactionStatus::FAILED));
-        if (dbException == DBExceptions::RecordNotFound) {
-            throw Exceptions::DoesntExist;
-        }
-        throw;
+        throw; // Re-throw all exceptions
     }
-    catch (Exceptions e)
-    {
-        _txRepo.addTransaction(Transaction(cardNum, cardNum,
-            TransactionType::DEPOSIT, amount, TransactionStatus::FAILED));
-        throw e;
-	}
 }
 
 void CardService::doWithdraw(const std::string& cardNum, int amount)
@@ -80,20 +71,11 @@ void CardService::doWithdraw(const std::string& cardNum, int amount)
         _txRepo.addTransaction(Transaction(cardNum, cardNum,
             TransactionType::WITHDRAWAL, amount, TransactionStatus::SUCCESSFUL));
     }
-    catch (const DBExceptions& dbException)
+    catch (const Exceptions& exception)
     {
         _txRepo.addTransaction(Transaction(cardNum, cardNum,
             TransactionType::WITHDRAWAL, amount, TransactionStatus::FAILED));
-        if (dbException == DBExceptions::RecordNotFound) {
-            throw Exceptions::DoesntExist;
-        }
-        throw;
-    }
-    catch (Exceptions e)
-    {
-        _txRepo.addTransaction(Transaction(cardNum, cardNum,
-            TransactionType::WITHDRAWAL, amount, TransactionStatus::FAILED));
-        throw e;
+        throw; // Re-throw all exceptions
     }
 }
 
@@ -132,20 +114,11 @@ void CardService::doTransfer(const std::string& from, const std::string& to, int
         _txRepo.addTransaction(Transaction(from, to,
             TransactionType::TRANSFER, amount, TransactionStatus::SUCCESSFUL));
     }
-    catch (const DBExceptions& dbException)
+    catch (const Exceptions& exception)
     {
         _txRepo.addTransaction(Transaction(from, to,
             TransactionType::TRANSFER, amount, TransactionStatus::FAILED));
-        if (dbException == DBExceptions::RecordNotFound) {
-            throw Exceptions::DoesntExist;
-        }
-        throw;
-    }
-    catch (Exceptions e)
-    {
-        _txRepo.addTransaction(Transaction(from, to,
-            TransactionType::TRANSFER, amount, TransactionStatus::FAILED));
-        throw e;
+        throw; // Re-throw all exceptions
     }
 }
 
@@ -160,11 +133,11 @@ void CardService::doChangePin(const std::string& cardNum, const std::string& new
         std::string newHashedPass = BCrypt::generateHash(newPin);
         _repo.updatePin(cardNum, newHashedPass);
     }
-    catch (const DBExceptions& dbException) {
-        if (dbException == DBExceptions::RecordNotFound) {
-            throw Exceptions::DoesntExist;
+    catch (const Exceptions& exception) {
+        if (exception == Exceptions::DoesntExist) {
+            throw;
         }
-        throw;
+        throw; // Let DBException propagate
     }
 }
 
@@ -173,10 +146,10 @@ Card CardService::doGetCard(const std::string& cardNum)
     try {
         return _repo.getCard(cardNum);
     }
-    catch (const DBExceptions& dbException) {
-        if (dbException == DBExceptions::RecordNotFound) {
-            throw Exceptions::DoesntExist;
+    catch (const Exceptions& exception) {
+        if (exception == Exceptions::DoesntExist) {
+            throw;
         }
-        throw;
+        throw; // Let DBException propagate
     }
 }
