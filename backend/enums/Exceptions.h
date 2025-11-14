@@ -3,15 +3,11 @@
 enum class Exceptions
 {
 	TooManyAttempts,
-	DoesntExist,
 	NoSuchCash,
 	NotEnoughMoney,
 	SamePassword,
 	SameCard,
-	AccessDenied
-};
-
-enum class DBExceptions {
+	AccessDenied,
 	DatabaseError,
 	ConnectionError,
 	RecordNotFound

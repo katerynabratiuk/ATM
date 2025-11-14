@@ -39,15 +39,15 @@ void TransactionRepository::doCreateTransaction(Transaction transaction) {
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
+        throw Exceptions::ConnectionError;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
 };
 
@@ -74,15 +74,15 @@ std::vector<Transaction> TransactionRepository::doListTransactions(const std::st
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
+        throw Exceptions::ConnectionError;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
 }
 
@@ -100,24 +100,24 @@ Transaction TransactionRepository::doGetLastTransaction(const std::string& cardN
         pqxx::result result = txn.exec_params(query, cardNumber);
 
         if (result.empty()) {
-            throw DBExceptions::RecordNotFound;
+            throw Exceptions::RecordNotFound;
         }
 
         return extractTransaction(result[0]);
     }
-    catch (const DBExceptions& dbException) {
+    catch (const Exceptions& dbException) {
         throw;
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
+        throw Exceptions::ConnectionError;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
 }

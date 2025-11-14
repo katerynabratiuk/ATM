@@ -22,15 +22,15 @@ int BanknoteRepository::doGetCount(Denominations denom)
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
+        throw Exceptions::ConnectionError;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
 }
 
@@ -51,15 +51,15 @@ void BanknoteRepository::doSetCount(Denominations denom, int count)
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
+        throw Exceptions::ConnectionError;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
 }
 
@@ -90,14 +90,14 @@ std::vector<std::pair<Denominations, int>> BanknoteRepository::doGetAllCounts()
     }
     catch (const pqxx::broken_connection& e) {
         std::cerr << "Connection error: " << e.what() << "\n";
-        throw DBExceptions::ConnectionError;
+        throw Exceptions::ConnectionError;
     }
     catch (const pqxx::sql_error& e) {
         std::cerr << "Database error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << "\n";
-        throw DBExceptions::DatabaseError;
+        throw Exceptions::DatabaseError;
     }
 }
