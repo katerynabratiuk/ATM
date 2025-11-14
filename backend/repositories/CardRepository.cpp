@@ -1,14 +1,19 @@
 #include "backend/repositories/CardRepository.h"
 #include "backend/models/Card.h"
 #include "backend/core/Money.h"
+#include "backend/enums/Exceptions.h"
 #include <iostream>
 #include <pqxx/pqxx>
 #include <pqxx/zview.hxx>
 #include <pqxx/params.hxx>
+#include <stdexcept>
 
 
 void CardRepository::doAddBalance(const std::string& cardNumber, int amount) {
+    try 
+    {
     auto& conn = _connection.getConnection();
+    
 
     pqxx::work txn{ conn };
 
@@ -20,9 +25,24 @@ void CardRepository::doAddBalance(const std::string& cardNumber, int amount) {
     txn.exec_params(query, cardNumber, amount);
     txn.commit();
     return;
+    }
+    catch (const pqxx::broken_connection& e) {
+        std::cerr << "Connection error: " << e.what() << "\n";
+        throw Exceptions::ConnectionError;
+    }
+    catch (const pqxx::sql_error& e) {
+        std::cerr << "Database error: " << e.what() << "\n";
+        throw Exceptions::DatabaseError;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Unexpected error: " << e.what() << "\n";
+        throw Exceptions::DatabaseError;
+    }
 }
 
 void CardRepository::doSubtractBalance(const std::string& cardNumber, int amount) {
+    try 
+    {
     auto& conn = _connection.getConnection();
 
     pqxx::work txn{ conn };
@@ -35,9 +55,24 @@ void CardRepository::doSubtractBalance(const std::string& cardNumber, int amount
     txn.exec_params(query, cardNumber, amount);
     txn.commit();
     return;
+    }
+    catch (const pqxx::broken_connection& e) {
+        std::cerr << "Connection error: " << e.what() << "\n";
+        throw Exceptions::ConnectionError;
+    }
+    catch (const pqxx::sql_error& e) {
+        std::cerr << "Database error: " << e.what() << "\n";
+        throw Exceptions::DatabaseError;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Unexpected error: " << e.what() << "\n";
+        throw Exceptions::DatabaseError;
+    }
 }
 
 void CardRepository::doUpdatePin(const std::string& cardNumber, const std::string& pin) {
+    try 
+    {
     auto& conn = _connection.getConnection();
 
     pqxx::work txn{ conn };
@@ -50,30 +85,64 @@ void CardRepository::doUpdatePin(const std::string& cardNumber, const std::strin
     txn.exec_params(query, cardNumber, pin);
     txn.commit();
     return;
+    }
+    catch (const pqxx::broken_connection& e) {
+        std::cerr << "Connection error: " << e.what() << "\n";
+        throw Exceptions::ConnectionError;
+    }
+    catch (const pqxx::sql_error& e) {
+        std::cerr << "Database error: " << e.what() << "\n";
+        throw Exceptions::DatabaseError;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Unexpected error: " << e.what() << "\n";
+        throw Exceptions::DatabaseError;
+    }
 }
 
 Card CardRepository::doGetCard(const std::string& cardNumber){
-    auto& conn = _connection.getConnection();
+    try {
+        auto& conn = _connection.getConnection();
 
-    pqxx::read_transaction txn{ conn };
+        pqxx::read_transaction txn{ conn };
 
-    const std::string_view query =
-        "SELECT * "
-        "FROM card "
-        "WHERE card_number = $1";
+        const std::string_view query =
+            "SELECT * "
+            "FROM card "
+            "WHERE card_number = $1";
 
-    pqxx::result result = txn.exec_params(query, cardNumber);
+        pqxx::result result = txn.exec_params(query, cardNumber);
 
-    auto row = result[0];
+        if (result.empty()) {
+            throw Exceptions::RecordNotFound;
+        }
 
-    Card card;
-    card._cardNumber = row["card_number"].as<std::string>();;
-    card._firstName = row["first_name"].as<std::string>();;
-    card._lastName = row["last_name"].as<std::string>();;
-    card._pin = row["pin_hash"].as<std::string>();;
+        auto row = result[0];
 
-    card._balance = atm::money::Money{ row["balance"].as<std::string>() };
-    card._creditLimit = atm::money::Money{ row["credit_limit"].as<std::string>() };
+        Card card;
+        card._cardNumber = row["card_number"].as<std::string>();;
+        card._firstName = row["first_name"].as<std::string>();;
+        card._lastName = row["last_name"].as<std::string>();;
+        card._pin = row["pin_hash"].as<std::string>();;
 
-    return card;
+        card._balance = atm::money::Money{ row["balance"].as<std::string>() };
+        card._creditLimit = atm::money::Money{ row["credit_limit"].as<std::string>() };
+
+        return card;
+    }
+    catch (const Exceptions& dbException) {
+        throw;
+    }
+    catch (const pqxx::broken_connection& e) {
+        std::cerr << "Connection error: " << e.what() << "\n";
+        throw Exceptions::ConnectionError;
+    }
+    catch (const pqxx::sql_error& e) {
+        std::cerr << "Database error: " << e.what() << "\n";
+        throw Exceptions::DatabaseError;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Unexpected error: " << e.what() << "\n";
+        throw Exceptions::DatabaseError;
+    }
 }

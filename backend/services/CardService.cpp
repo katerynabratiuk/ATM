@@ -121,7 +121,8 @@ void CardService::doChangePin(const std::string& cardNum, const std::string& new
     {
         throw Exceptions::SamePassword;
     }
-    _repo.updatePin(cardNum, newPin);
+    std::string newHashedPass = BCrypt::generateHash(newPin);
+    _repo.updatePin(cardNum, newHashedPass);
 }
 
 Card CardService::doGetCard(const std::string& cardNum)

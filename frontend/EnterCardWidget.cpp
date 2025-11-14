@@ -59,7 +59,7 @@ void EnterCardWidget::setCard()
 	}
 	catch (Exceptions e)
 	{
-		if (e == Exceptions::DoesntExist)
+		if (e == Exceptions::RecordNotFound)
 		{
 			_ui.errorInfo->setText("Card does not exist.");
 		}

@@ -1,4 +1,5 @@
 #include "backend/services/TransactionService.h"
+#include "backend/enums/Exceptions.h"
 #include <stdexcept>
 
 TransactionService::TransactionService(ITransactionRepository& repo)

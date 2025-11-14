@@ -39,13 +39,13 @@ void BalanceWidget::show()
 				QString::fromStdString(atm::money::to_string(card._creditLimit)) + " uah"
 			);
 		}
-		_ui.bValue->setText(
+		_ui.avValue->setText(
 			QString::fromStdString(atm::money::to_string(available)) + " uah"
 		);
 	}
 	catch (Exceptions e)
 	{
-		_ui.bValue->setText("error");
+		_ui.avValue->setText("error");
 		_ui.clValue->setText("error");
 	}
 }
