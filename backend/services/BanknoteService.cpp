@@ -27,7 +27,7 @@ void BanknoteService::doDispense(int amount)
             _repo.setCount(denom, newCount);
         }
     }
-    catch (const Exceptions& exception) {
+    catch (const DBExceptions& dbException) {
         throw;
     }
 }
