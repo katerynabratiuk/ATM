@@ -10,11 +10,19 @@ CardService::CardService(ICardRepository& cardRepository, IBanknoteService& bank
 
 void CardService::doAuth(const std::string& cardNum, const std::string& pin)
 {
-    Card card = _repo.getCard(cardNum);
+    try {
+        Card card = _repo.getCard(cardNum);
 
-    if (!BCrypt::validatePassword(pin, card._pin))
-    {
-        throw Exceptions::AccessDenied;
+        if (!BCrypt::validatePassword(pin, card._pin))
+        {
+            throw Exceptions::AccessDenied;
+        }
+    }
+    catch (const DBExceptions& dbException) {
+        if (dbException == DBExceptions::RecordNotFound) {
+            throw Exceptions::DoesntExist;
+        }
+        throw Exceptions::DoesntExist;
     }
 }
 
@@ -25,6 +33,15 @@ void CardService::doDeposit(const std::string& cardNum, int amount)
         _repo.deposit(cardNum, amount);
         _txRepo.addTransaction(Transaction(cardNum, cardNum, 
             TransactionType::DEPOSIT, amount, TransactionStatus::SUCCESSFUL));
+    }
+    catch (const DBExceptions& dbException)
+    {
+        _txRepo.addTransaction(Transaction(cardNum, cardNum,
+            TransactionType::DEPOSIT, amount, TransactionStatus::FAILED));
+        if (dbException == DBExceptions::RecordNotFound) {
+            throw Exceptions::DoesntExist;
+        }
+        throw Exceptions::DoesntExist;
     }
     catch (Exceptions e)
     {
@@ -48,6 +65,15 @@ void CardService::doWithdraw(const std::string& cardNum, int amount)
         _repo.withdraw(cardNum, amount);
         _txRepo.addTransaction(Transaction(cardNum, cardNum,
             TransactionType::WITHDRAWAL, amount, TransactionStatus::SUCCESSFUL));
+    }
+    catch (const DBExceptions& dbException)
+    {
+        _txRepo.addTransaction(Transaction(cardNum, cardNum,
+            TransactionType::WITHDRAWAL, amount, TransactionStatus::FAILED));
+        if (dbException == DBExceptions::RecordNotFound) {
+            throw Exceptions::DoesntExist;
+        }
+        throw Exceptions::DoesntExist;
     }
     catch (Exceptions e)
     {
@@ -79,6 +105,15 @@ void CardService::doTransfer(const std::string& from, const std::string& to, int
         _txRepo.addTransaction(Transaction(from, to,
             TransactionType::TRANSFER, amount, TransactionStatus::SUCCESSFUL));
     }
+    catch (const DBExceptions& dbException)
+    {
+        _txRepo.addTransaction(Transaction(from, to,
+            TransactionType::TRANSFER, amount, TransactionStatus::FAILED));
+        if (dbException == DBExceptions::RecordNotFound) {
+            throw Exceptions::DoesntExist;
+        }
+        throw Exceptions::DoesntExist;
+    }
     catch (Exceptions e)
     {
         _txRepo.addTransaction(Transaction(from, to,
@@ -89,16 +124,32 @@ void CardService::doTransfer(const std::string& from, const std::string& to, int
 
 void CardService::doChangePin(const std::string& cardNum, const std::string& newPin)
 {
-    Card card = _repo.getCard(cardNum);
-    if (BCrypt::validatePassword(newPin, card._pin))
-    {
-        throw Exceptions::SamePassword;
+    try {
+        Card card = _repo.getCard(cardNum);
+        if (BCrypt::validatePassword(newPin, card._pin))
+        {
+            throw Exceptions::SamePassword;
+        }
+        std::string newHashedPass = BCrypt::generateHash(newPin);
+        _repo.changePin(cardNum, newHashedPass);
     }
-    std::string newHashedPass = BCrypt::generateHash(newPin);
-    _repo.changePin(cardNum, newHashedPass);
+    catch (const DBExceptions& dbException) {
+        if (dbException == DBExceptions::RecordNotFound) {
+            throw Exceptions::DoesntExist;
+        }
+        throw Exceptions::DoesntExist;
+    }
 }
 
 Card CardService::doGetCard(const std::string& cardNum)
 {
-    return _repo.getCard(cardNum);
+    try {
+        return _repo.getCard(cardNum);
+    }
+    catch (const DBExceptions& dbException) {
+        if (dbException == DBExceptions::RecordNotFound) {
+            throw Exceptions::DoesntExist;
+        }
+        throw Exceptions::DoesntExist;
+    }
 }
