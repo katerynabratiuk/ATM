@@ -28,16 +28,20 @@ void BalanceWidget::show()
 	try
 	{
 		Card card/* = _cardController.getCard()*/;
-		_ui.bValue->setText(
-			QString::fromStdString(atm::money::to_string(card._balance)) + " uah"
-		);
-		_ui.clValue->setText(
-			QString::fromStdString(atm::money::to_string(card._creditLimit)) + " uah"
-		);
-		if (card._creditLimit <= 0)
+		_ui.clValue->setText("not a credit card");
+
+		atm::money::Money available = card._balance;
+		if (card._creditLimit > 0)
 		{
-			_ui.clValue->setText("not a credit card");
+			available = card._creditLimit - card._balance;
+
+			_ui.clValue->setText(
+				QString::fromStdString(atm::money::to_string(card._creditLimit)) + " uah"
+			);
 		}
+		_ui.bValue->setText(
+			QString::fromStdString(atm::money::to_string(available)) + " uah"
+		);
 	}
 	catch (Exceptions e)
 	{

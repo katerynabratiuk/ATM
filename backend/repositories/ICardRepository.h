@@ -6,19 +6,19 @@ class ICardRepository
 {
 public:
 
-	void deposit(const std::string& cardNumber, int amount)
+	void addBalance(const std::string& cardNumber, int amount)
 	{
-		doDeposit(cardNumber, amount);
+		doAddBalance(cardNumber, amount);
 	}
 
-	void withdraw(const std::string& cardNumber, int amount)
+	void subtractBalance(const std::string& cardNumber, int amount)
 	{
-		doWithdraw(cardNumber, amount);
+		doSubtractBalance(cardNumber, amount);
 	}
 
-	void changePin(const std::string& cardNumber, const std::string& newPin)
+	void updatePin(const std::string& cardNumber, const std::string& newPin)
 	{
-		doChangePin(cardNumber, newPin);
+		doUpdatePin(cardNumber, newPin);
 	}
 
 	Card getCard(const std::string& cardNumber)
@@ -27,9 +27,9 @@ public:
 	}
 	~ICardRepository() = default;
 private:
-	virtual void doDeposit(const std::string& cardNumber, int amount) = 0;
-	virtual void doWithdraw(const std::string& cardNumber, int amount) = 0;
-	virtual void doChangePin(const std::string& cardNumber, const std::string& newPin) = 0;
+	virtual void doAddBalance(const std::string& cardNumber, int amount) = 0;
+	virtual void doSubtractBalance(const std::string& cardNumber, int amount) = 0;
+	virtual void doUpdatePin(const std::string& cardNumber, const std::string& newPin) = 0;
 	virtual Card doGetCard(const std::string& cardNumber) = 0;
 };
 
