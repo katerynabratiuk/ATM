@@ -10,3 +10,9 @@ enum class Exceptions
 	SameCard,
 	AccessDenied
 };
+
+enum class DBExceptions {
+	DatabaseError,
+	ConnectionError,
+	RecordNotFound
+};
