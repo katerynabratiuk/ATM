@@ -2,7 +2,7 @@ Get-Content ".env" | ForEach-Object {
     if ($_ -match "^\s*([^#][^=]*)\s*=\s*(.*)$") {
         $name = $matches[1]
         $value = $matches[2]
-        $env:$name = $value
+        Set-Item -Path "Env:$name" -Value $value
     }
 }
 
@@ -21,6 +21,6 @@ if (-not $exists) {
 }
 
 Write-Host "Applying schema..."
-psql -d $env:DB_NAME -f ".\db\schema.sql"
+psql -d $env:DB_NAME -f ".\schema.sql"
 
 Write-Host "Done."
