@@ -1,5 +1,8 @@
 #include "frontend/ATMInterface.h"
 #include <QtWidgets/QApplication>
+#include <filesystem>
+#include <iostream>
+#include "backend/external/dotenv.h"
 
 #include "backend/repositories/PostgresDBConnection.h" 
 #include "backend/repositories/BanknoteRepository.h"
@@ -15,6 +18,15 @@
 
 int main(int argc, char *argv[])
 {
+    dotenv::init("../../.env");
+
+    if (const char* db_name = std::getenv("DB_NAME")) {
+        std::cout << "DB_NAME=" << db_name << std::endl;
+    }
+    else {
+        std::cerr << "DB_NAME is not set!" << std::endl;
+    }
+
     PostgresDBConnection c(
         "atm", "postgres", "127.0.0.1", 5432, "aa1010AA"
     );
