@@ -8,7 +8,7 @@ function Set-EnvPersist {
         return
     }
 
-    $env:$Name = $Value
+    Set-Item -Path "Env:$Name" -Value $Value
 
     [System.Environment]::SetEnvironmentVariable($Name, $Value, "User")
 }
@@ -20,6 +20,14 @@ Get-Content ".env" | ForEach-Object {
         $name = $matches[1].Trim()
         $value = $matches[2].Trim()
         $envVars[$name] = $value
+    }
+}
+
+$keysToImport = @("DB_USER", "DB_PASSWORD", "DB_HOST", "DB_PORT", "DB_NAME")
+
+foreach ($key in $keysToImport) {
+    if ($envVars.ContainsKey($key)) {
+        Set-Item -Path "Env:$key" -Value $envVars[$key]
     }
 }
 
