@@ -2,7 +2,7 @@
 #include "backend/enums/Exceptions.h"
 
 EnterPinWidget::EnterPinWidget(ICardController& cardController, QWidget * parent) 
-	: QWidget(parent), _cardController(cardController)
+	: QWidget(parent), _cardController(cardController), _attemptsLeft(3)
 {
 	_ui.setupUi(this);
 
@@ -63,11 +63,15 @@ void EnterPinWidget::authenticate()
 	{
 		if (e == Exceptions::AccessDenied)
 		{
-			_ui.errorInfo->setText("Incorrect PIN. Please try again.");
-		}
-		if (e == Exceptions::TooManyAttempts)
-		{
-			doOnCancel();
+			_attemptsLeft--;
+			if (_attemptsLeft <= 0)
+			{
+				doOnCancel();
+				return;
+			}
+
+			_ui.errorInfo->setText("Incorrect PIN. Attempts left: " +
+				QString::number(_attemptsLeft) + '.');
 		}
 		else
 		{
@@ -80,5 +84,6 @@ void EnterPinWidget::clean()
 {
 	_ui.pinForm->clear();
 	_ui.errorInfo->clear();
+	_attemptsLeft = 3;
 }
 

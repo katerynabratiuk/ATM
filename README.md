@@ -25,4 +25,4 @@ chmod +x ./init_db.sh
 5. Правою кнопкою на ATMSimulator (executable) -> Set as Startup Item
 6. Build -> Build all
 7. RunDebug → Start Debugging (або F5)
-або Debug → Start Without Debugging (Ctrl + F
+або Debug → Start Without Debugging (Ctrl + F)

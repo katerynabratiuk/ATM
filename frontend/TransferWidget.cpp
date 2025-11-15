@@ -80,7 +80,7 @@ void TransferWidget::transfer()
 		_ui.errorInfo->setText("Please enter a 13-digit card number.");
 		return;
 	}
-	if (_ui.amountForm->text().isEmpty())
+	if (_ui.amountForm->text().isEmpty() || _ui.amountForm->text().toInt() <= 0)
 	{
 		_ui.errorInfo->setText("Please enter an amount to transfer.");
 		return;

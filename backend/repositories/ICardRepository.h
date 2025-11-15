@@ -16,9 +16,9 @@ public:
 		doSubtractBalance(cardNumber, amount);
 	}
 
-	void updatePin(const std::string& cardNumber, const std::string& newPin)
+	void updatePin(const std::string& cardNumber, const std::string& newHashedPin)
 	{
-		doUpdatePin(cardNumber, newPin);
+		doUpdatePin(cardNumber, newHashedPin);
 	}
 
 	Card getCard(const std::string& cardNumber)
@@ -29,7 +29,7 @@ public:
 private:
 	virtual void doAddBalance(const std::string& cardNumber, int amount) = 0;
 	virtual void doSubtractBalance(const std::string& cardNumber, int amount) = 0;
-	virtual void doUpdatePin(const std::string& cardNumber, const std::string& newPin) = 0;
+	virtual void doUpdatePin(const std::string& cardNumber, const std::string& newHashedPin) = 0;
 	virtual Card doGetCard(const std::string& cardNumber) = 0;
 };
 

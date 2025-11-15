@@ -16,7 +16,7 @@
 int main(int argc, char *argv[])
 {
     PostgresDBConnection c(
-        "atm", "postgres", "127.0.0.1", 5432, "atm_pass"
+        "atm", "postgres", "127.0.0.1", 5432, "aa1010AA"
     );
     if (!c.connect()) 
     {

@@ -70,7 +70,7 @@ void CardRepository::doSubtractBalance(const std::string& cardNumber, int amount
     }
 }
 
-void CardRepository::doUpdatePin(const std::string& cardNumber, const std::string& pin) {
+void CardRepository::doUpdatePin(const std::string& cardNumber, const std::string& newHashedPin) {
     try 
     {
     auto& conn = _connection.getConnection();
@@ -79,10 +79,10 @@ void CardRepository::doUpdatePin(const std::string& cardNumber, const std::strin
 
     const std::string_view query =
         "UPDATE card "
-        "SET pin_hash = crypt($2, pin_hash) "
+        "SET pin_hash = $2 "
         "WHERE card_number = $1;";
 
-    txn.exec_params(query, cardNumber, pin);
+    txn.exec_params(query, cardNumber, newHashedPin);
     txn.commit();
     return;
     }

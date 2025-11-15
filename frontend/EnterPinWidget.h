@@ -29,6 +29,8 @@ private:
 
 	ICardController& _cardController;
 
+	int _attemptsLeft;
+
 	void clean();
 	void authenticate();
 };

@@ -41,7 +41,7 @@ void DepositWidget::doOnCancel()
 
 void DepositWidget::deposit()
 {
-	if (_ui.amountForm->text().isEmpty())
+	if (_ui.amountForm->text().isEmpty() || _ui.amountForm->text().toInt() <= 0)
 	{
 		_ui.errorInfo->setText("Please enter an amount to deposit.");
 		return;
