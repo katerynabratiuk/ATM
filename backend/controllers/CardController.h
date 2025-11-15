@@ -26,7 +26,6 @@ private:
 	void doChangePin(const std::string& newPin) override;
 	Card doGetCard() override;
 
-	int _attempts;
 	Session* _session;
 	ICardService& _service;
 };

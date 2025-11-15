@@ -23,7 +23,7 @@ class ATMInterface : public QMainWindow
     Q_OBJECT
 
 public:
-    ATMInterface(QWidget *parent = nullptr);
+    ATMInterface(ICardController& cardController, QWidget *parent = nullptr);
     ~ATMInterface();
 
 private slots:
@@ -67,7 +67,7 @@ signals:
 private:
     Ui::ATMInterfaceClass _ui;
 
-    // ICardController& _cardController;
+    ICardController& _cardController;
 
     EnterCardWidget _cardPage;
     EnterPinWidget _enterPinPage;

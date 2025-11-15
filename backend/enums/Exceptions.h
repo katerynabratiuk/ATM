@@ -2,7 +2,6 @@
 
 enum class Exceptions
 {
-	TooManyAttempts,
 	NoSuchCash,
 	NotEnoughMoney,
 	SamePassword,

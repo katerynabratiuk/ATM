@@ -1,7 +1,7 @@
 #include "backend/controllers/CardController.h"
 #include "backend/enums/Exceptions.h"
 
-CardController::CardController(ICardService& service) : _session(nullptr), _service(service), _attempts(0)
+CardController::CardController(ICardService& service) : _session(nullptr), _service(service)
 {}
 
 CardController::~CardController()
@@ -11,20 +11,7 @@ CardController::~CardController()
 
 void CardController::doAuth(const std::string& pin)
 {
-	try 
-	{
-		if (_attempts >= 3)
-		{
-			doDeauth();
-			throw Exceptions::TooManyAttempts;
-		}
-		_service.authenticate(_session->_cardNum, pin);
-	}
-	catch (Exceptions e)
-	{
-		_attempts++;
-		throw e;
-	}
+	_service.authenticate(_session->_cardNum, pin);
 }
 
 void CardController::doSetCard(const std::string& cardNum)
@@ -35,7 +22,6 @@ void CardController::doSetCard(const std::string& cardNum)
 
 void CardController::doDeauth()
 {
-	_attempts = 0;
 	delete _session;
 	_session = nullptr;
 }
