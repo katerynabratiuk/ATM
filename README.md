@@ -1,23 +1,32 @@
-## Вимоги:
-1. Postgres
-2. Qt 6.9.3
-3. vcpkg
----
-## Запус проєкту:
+## Запуск проєкту
 
-### База даних
-1. Встановіть змінні оточення (`\.env`)
-2. В powershell:   
+### Передумови
+
+Потрібно мати встановлені:
+
+- **Postgres**
+- **Qt** (версія 6.9.3)
+- **vcpkg**
+
+Клонування репозиторію
+
+   ```
+   git clone https://github.com/katerynabratiuk/ATM
+   ```
+
+Встановити змінні оточення в .env за прикладом з .env.sample
+
+### Postgres
+
+В терміналі: 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\init_db.ps1
 ```
 
-### Відкрити в VS
-1. Відкрийте Visual Studio
-2. File → Open → Folder
-3. Відкрийте кореневу директорію (в якій знаходиться CMakeLists.txt)
-4. View -> CMake Targets
-5. Правою кнопкою на ATMSimulator (executable) -> Set as Startup Item
-6. Build -> Build all
-7. RunDebug → Start Debugging (або F5)
-або Debug → Start Without Debugging (Ctrl + F)
+### Visual Studio
+
+1. View -> CMake Targets
+2. Правою кнопкою на ATMSimulator (executable) -> Set as Startup Item
+3. Зачекайте, поки згенерується cmake
+4. Build -> Build all
+5. Run в release mode або debug mode
