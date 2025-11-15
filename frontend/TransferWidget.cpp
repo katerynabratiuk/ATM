@@ -1,8 +1,8 @@
 #include "TransferWidget.h"
 #include "backend/enums/Exceptions.h"
 
-TransferWidget::TransferWidget(QWidget* parent)
-	: QWidget(parent), _top(true)
+TransferWidget::TransferWidget(ICardController& cardController, QWidget* parent)
+	: QWidget(parent), _top(true), _cardController(cardController)
 {
 	_ui.setupUi(this);
 
@@ -80,7 +80,7 @@ void TransferWidget::transfer()
 		_ui.errorInfo->setText("Please enter a 13-digit card number.");
 		return;
 	}
-	if (_ui.amountForm->text().isEmpty())
+	if (_ui.amountForm->text().isEmpty() || _ui.amountForm->text().toInt() <= 0)
 	{
 		_ui.errorInfo->setText("Please enter an amount to transfer.");
 		return;
@@ -88,8 +88,8 @@ void TransferWidget::transfer()
 
 	try
 	{
-		//_cardController->transfer(_ui.cardForm->text().toStdString(), 
-		// _ui.amountForm->text().toInt());
+		_cardController.transfer(_ui.cardForm->text().toStdString(), 
+			_ui.amountForm->text().toInt());
 
 		clean();
 

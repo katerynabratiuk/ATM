@@ -16,6 +16,6 @@ private:
 
     void doAddBalance(const std::string& cardNumber, int amount) override;
     void doSubtractBalance(const std::string& cardNumber, int amount) override;
-    void doUpdatePin(const std::string& cardNumber, const std::string& newPin) override;
+    void doUpdatePin(const std::string& cardNumber, const std::string& newHashedPin) override;
     Card doGetCard(const std::string& cardNumber) override;
 };

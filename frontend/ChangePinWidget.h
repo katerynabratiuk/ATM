@@ -6,13 +6,14 @@
 
 #include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
+#include "backend/controllers/ICardController.h"
 
 class ChangePinWidget : public QWidget, public IPage
 {
 	Q_OBJECT
 	Q_INTERFACES(IPage)
 public:
-	ChangePinWidget(QWidget *parent = nullptr);
+	ChangePinWidget(ICardController& cardController, QWidget *parent = nullptr);
 	~ChangePinWidget();
 
 	void doOnDigit(int digit) override;
@@ -26,7 +27,7 @@ signals:
 private:
 	Ui::ChangePinWidgetClass _ui;
 
-	// ICardController& _cardController;
+	ICardController& _cardController;
 
 	void clean();
 	void change();
