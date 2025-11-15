@@ -1,9 +1,34 @@
+function Set-EnvPersist {
+    param(
+        [string]$Name,
+        [string]$Value
+    )
+
+    if ([string]::IsNullOrWhiteSpace($Value)) {
+        return
+    }
+
+    $env:$Name = $Value
+
+    [System.Environment]::SetEnvironmentVariable($Name, $Value, "User")
+}
+
+$envVars = @{}
+
 Get-Content ".env" | ForEach-Object {
     if ($_ -match "^\s*([^#][^=]*)\s*=\s*(.*)$") {
-        $name = $matches[1]
-        $value = $matches[2]
-        Set-Item -Path "Env:$name" -Value $value
+        $name = $matches[1].Trim()
+        $value = $matches[2].Trim()
+        $envVars[$name] = $value
     }
+}
+
+if ($envVars.ContainsKey("QT_DIR")) {
+    Set-EnvPersist -Name "QT_DIR" -Value $envVars["QT_DIR"]
+}
+
+if ($envVars.ContainsKey("VCPKG_ROOT")) {
+    Set-EnvPersist -Name "VCPKG_ROOT" -Value $envVars["VCPKG_ROOT"]
 }
 
 if (-not $env:PGUSER)      { $env:PGUSER = $env:DB_USER }
