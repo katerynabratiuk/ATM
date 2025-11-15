@@ -20,16 +20,14 @@ int main(int argc, char *argv[])
 {
     dotenv::init("../../.env");
 
-    if (const char* db_name = std::getenv("DB_NAME")) {
-        std::cout << "DB_NAME=" << db_name << std::endl;
-    }
-    else {
-        std::cerr << "DB_NAME is not set!" << std::endl;
-    }
-
     PostgresDBConnection c(
-        "atm", "postgres", "127.0.0.1", 5432, "aa1010AA"
+        std::getenv("DB_NAME"),
+        std::getenv("DB_USER"),
+        std::getenv("DB_HOST"),
+        std::atoi(std::getenv("DB_PORT")),
+        std::getenv("DB_PASSWORD")
     );
+
     if (!c.connect()) 
     {
         throw std::runtime_error("DB: connect() returned false");
