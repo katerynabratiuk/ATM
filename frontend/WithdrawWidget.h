@@ -5,13 +5,14 @@
 
 #include "frontend/IPage.h"
 #include "backend/enums/Pages.h"
+#include "backend/controllers/ICardController.h"
 
 class WithdrawWidget : public QWidget, public IPage
 {
 	Q_OBJECT
 	Q_INTERFACES(IPage)
 public:
-	WithdrawWidget(QWidget *parent = nullptr);
+	WithdrawWidget(ICardController& cardController, QWidget *parent = nullptr);
 	~WithdrawWidget();
 
 	void doOnDigit(int digit) override;
@@ -25,7 +26,7 @@ signals:
 private:
 	Ui::WithdrawWidgetClass _ui;
 
-	// ICardController& _cardController;
+	ICardController& _cardController;
 
 	void clean();
 	void withdraw();

@@ -6,13 +6,14 @@
 
 #include "backend/enums/Pages.h"
 #include "frontend/IPage.h"
+#include "backend/controllers/ICardController.h"
 
 class EnterCardWidget : public QWidget, public IPage
 {
 	Q_OBJECT
 	Q_INTERFACES(IPage)
 public:
-	EnterCardWidget(QWidget* parent = nullptr);
+	EnterCardWidget(ICardController& cardController, QWidget* parent = nullptr);
 	~EnterCardWidget();
 
 	void doOnDigit(int digit) override;
@@ -26,7 +27,7 @@ signals:
 private:
 	Ui::EnterCardWidgetClass _ui;
 
-	// ICardController& _cardController;
+	ICardController& _cardController;
 
 	void clean();
 	void setCard();

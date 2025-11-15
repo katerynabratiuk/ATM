@@ -1,7 +1,11 @@
 #include "frontend/ATMInterface.h"
 
-ATMInterface::ATMInterface(QWidget* parent)
-	: QMainWindow(parent)
+ATMInterface::ATMInterface(ICardController& cardController, QWidget* parent)
+	: QMainWindow(parent), _cardController(cardController),
+	_cardPage(cardController), _enterPinPage(cardController),
+	_withdrawPage(cardController), _depositPage(cardController), 
+	_transferPage(cardController), _changePinPage(cardController),
+	_balancePage(cardController)
 {
 	_ui.setupUi(this);
 
@@ -19,7 +23,7 @@ void ATMInterface::changeCurrentPage(Pages page)
 {
 	if (page == Pages::EnterCardPage)
 	{
-		/*_cardController.Deauth();*/
+		_cardController.deauthenticate();
 	}
 	else if (page == Pages::BalancePage)
 	{

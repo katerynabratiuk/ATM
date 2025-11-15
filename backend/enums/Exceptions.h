@@ -2,11 +2,12 @@
 
 enum class Exceptions
 {
-	TooManyAttempts,
-	DoesntExist,
 	NoSuchCash,
 	NotEnoughMoney,
 	SamePassword,
 	SameCard,
-	AccessDenied
+	AccessDenied,
+	DatabaseError,
+	ConnectionError,
+	RecordNotFound
 };

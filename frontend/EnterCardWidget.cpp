@@ -2,7 +2,8 @@
 #include "EnterPinWidget.h"
 #include "backend/enums/Exceptions.h"
 
-EnterCardWidget::EnterCardWidget(QWidget* parent) : QWidget(parent)
+EnterCardWidget::EnterCardWidget(ICardController& cardController, QWidget* parent) 
+	: QWidget(parent), _cardController(cardController)
 {
 	_ui.setupUi(this);
 
@@ -51,7 +52,7 @@ void EnterCardWidget::setCard()
 
 	try
 	{
-		//_cardController->setCard(_ui.cardForm->text().toStdString());
+		_cardController.setCard(_ui.cardForm->text().toStdString());
 
 		clean();
 
@@ -59,7 +60,7 @@ void EnterCardWidget::setCard()
 	}
 	catch (Exceptions e)
 	{
-		if (e == Exceptions::DoesntExist)
+		if (e == Exceptions::RecordNotFound)
 		{
 			_ui.errorInfo->setText("Card does not exist.");
 		}

@@ -1,8 +1,8 @@
 #include "BalanceWidget.h"
 #include "backend/enums/Exceptions.h"
 
-BalanceWidget::BalanceWidget(QWidget *parent)
-	: QWidget(parent)
+BalanceWidget::BalanceWidget(ICardController& cardController, QWidget *parent)
+	: QWidget(parent), _cardController(cardController)
 {
 	_ui.setupUi(this);
 
@@ -27,7 +27,7 @@ void BalanceWidget::show()
 {
 	try
 	{
-		Card card/* = _cardController.getCard()*/;
+		Card card = _cardController.getCard();
 		_ui.clValue->setText("not a credit card");
 
 		atm::money::Money available = card._balance;
@@ -39,13 +39,13 @@ void BalanceWidget::show()
 				QString::fromStdString(atm::money::to_string(card._creditLimit)) + " uah"
 			);
 		}
-		_ui.bValue->setText(
+		_ui.avValue->setText(
 			QString::fromStdString(atm::money::to_string(available)) + " uah"
 		);
 	}
 	catch (Exceptions e)
 	{
-		_ui.bValue->setText("error");
+		_ui.avValue->setText("error");
 		_ui.clValue->setText("error");
 	}
 }

@@ -1,8 +1,8 @@
 #include "DepositWidget.h"
 #include "backend/enums/Exceptions.h"
 
-DepositWidget::DepositWidget(QWidget *parent)
-	: QWidget(parent)
+DepositWidget::DepositWidget(ICardController& cardController, QWidget *parent)
+	: QWidget(parent), _cardController(cardController)
 {
 	_ui.setupUi(this);
 
@@ -41,7 +41,7 @@ void DepositWidget::doOnCancel()
 
 void DepositWidget::deposit()
 {
-	if (_ui.amountForm->text().isEmpty())
+	if (_ui.amountForm->text().isEmpty() || _ui.amountForm->text().toInt() <= 0)
 	{
 		_ui.errorInfo->setText("Please enter an amount to deposit.");
 		return;
@@ -55,7 +55,7 @@ void DepositWidget::deposit()
 
 	try
 	{
-		//_cardController->deposit(_ui.amountForm->text().toInt());
+		_cardController.deposit(_ui.amountForm->text().toInt());
 
 		clean();
 

@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 project(ATMSimulator LANGUAGES C CXX)
 
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/vcpkg_installed/x64-windows")
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -117,3 +119,5 @@ target_link_libraries(ATMSimulator
 if (MSVC)
   target_compile_options(ATMSimulator PRIVATE /W4 /permissive-)
 endif()
+
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ATMSimulator)
