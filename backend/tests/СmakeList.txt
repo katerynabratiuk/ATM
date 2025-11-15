@@ -1,13 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(ATMSimulator LANGUAGES C CXX)
 
-# --- DEBUGGING ---
-message(STATUS "--- DEBUG ---")
-message(STATUS "CMAKE_TOOLCHAIN_FILE = ${CMAKE_TOOLCHAIN_FILE}")
-message(STATUS "CMAKE_PREFIX_PATH = ${CMAKE_PREFIX_PATH}")
-message(STATUS "VCPKG_TARGET_TRIPLET = ${VCPKG_TARGET_TRIPLET}")
-message(STATUS "--- END DEBUG ---")
-
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/vcpkg_installed/x64-windows")
 
 set(CMAKE_CXX_STANDARD 20)
@@ -19,7 +12,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
-find_package(libpqxx CONFIG QUIET)
+find_package(libpqxx CONFIG REQUIRED)
 
 file(GLOB FRONTEND_UI   "${CMAKE_CURRENT_SOURCE_DIR}/frontend/*.ui")
 file(GLOB FRONTEND_QRC  "${CMAKE_CURRENT_SOURCE_DIR}/frontend/*.qrc")
@@ -128,3 +121,50 @@ if (MSVC)
 endif()
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ATMSimulator)
+
+# --- Unit Testing Setup ---
+# Add gtest/gmock
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+)
+FetchContent_MakeAvailable(googletest)
+
+# Enable testing
+enable_testing()
+
+# Add the test executable
+file(GLOB TEST_SRC
+    "backend/tests/*.cpp"
+)
+
+add_executable(atm_tests
+    ${BACKEND_SRC}
+    ${TEST_SRC}
+)
+
+# Link tests against gtest, gmock, and other dependencies
+target_link_libraries(atm_tests
+    PRIVATE
+        gtest_main
+        gmock_main
+        libpqxx::pqxx
+        ${_bcrypt_link_target}
+)
+
+# Include directories for tests
+target_include_directories(atm_tests
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/backend
+        ${googletest_SOURCE_DIR}/googletest/include
+        ${googletest_SOURCE_DIR}/googlemock/include
+)
+
+if (BCRYPT_INCLUDE_DIR)
+  target_include_directories(atm_tests BEFORE PRIVATE ${BCRYPT_INCLUDE_DIR})
+endif()
+
+# Add a test to CTest
+add_test(NAME backend_tests COMMAND atm_tests)

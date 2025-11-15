@@ -5,7 +5,7 @@
       "name": "base",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+        "CMAKE_TOOLCHAIN_FILE": "C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
         "VCPKG_TARGET_TRIPLET": "x64-windows",
         "CMAKE_EXPORT_COMPILE_COMMANDS": true
       }
@@ -15,7 +15,7 @@
       "hidden": true,
       "inherits": "base",
       "cacheVariables": {
-        "CMAKE_PREFIX_PATH": "$env{QT_DIR}"
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.9.3/msvc2022_64"
       }
     },
     {
@@ -61,7 +61,7 @@
   ],
   "vendor": {
     "qt-project.org/Presets": {
-      "checksum": "XmiAqOLFth41gQv5oB+9aSTqoOs="
+      "checksum": "vsF7RhgrP4xThKskfe0iwxxOJ3Q="
     }
   }
 }
