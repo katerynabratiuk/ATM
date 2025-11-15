@@ -11,11 +11,6 @@
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\init_db.ps1
 ```
-або в bash:
-```bash
-chmod +x ./init_db.sh
-./init_db.sh
-```
 
 ### Відкрити в VS
 1. Відкрийте Visual Studio
