@@ -1,7 +1,16 @@
 cmake_minimum_required(VERSION 3.20)
 project(ATMSimulator LANGUAGES C CXX)
 
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/vcpkg_installed/x64-windows")
+if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+  message(FATAL_ERROR
+    "vcpkg manifest mode is required")
+endif()
+
+if(NOT DEFINED ENV{QT_DIR} OR NOT EXISTS "$ENV{QT_DIR}")
+  message(FATAL_ERROR
+    "Set the QT_DIR environment variable to your Qt 6.9.3 install")
+endif()
+list(PREPEND CMAKE_PREFIX_PATH "$ENV{QT_DIR}")
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
